@@ -7,4 +7,5 @@ Pod::Spec.new do |s|
   s.license         = { :type => 'MIT' }
   s.source          = { :git => 'https://github.com/blazingcloud/sealant.git' }
   s.source_files    = ''
+  s.preserve_paths  = 'Scripts'
 end
