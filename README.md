@@ -9,7 +9,10 @@ Installation
 
 Use [Cocoapods](http://cocoapods.org) to install Sealant:
 
->target :spec, :exclusive => true do
+
+> target :spec, :exclusive => true do
+
 >    pod 'Sealant'
->end
+
+> end
 
