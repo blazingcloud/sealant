@@ -33,15 +33,18 @@ Load .rvmrc, which should install bundler and all gems listed in Gemfile
 
     cd .
 
-Create New Project
+Create New Project `<ProjectName>`
 -------------
 
 In Xcode create new project <ProjectName> with ARC, Unit Tests and Storyboard
 
-### [App Specs](App Specs)
+### Create [App Specs](App Specs) target and folder
 
 In Xcode 
-*   rename `<ProjectName>`Tests target to "App Specs"
-*   rename <ProjectName>Tests.m file to SanityTests.m, fix failing test as in [SanityTests.m](App Specs/SanityTests.m)
-*   rename <ProjectName>Test-Info.plist to "App Specs-Info.plist"
-*   delete <ProjectName>Tests/Localized.strings
+*   rename `<ProjectName>Tests` target to "App Specs"
+*   rename `<ProjectName>Tests.m` file to SanityTests.m, fix failing test as in [SanityTests.m](App Specs/SanityTests.m)
+*   rename `<ProjectName>Test-Info.plist` to "App Specs-Info.plist"
+*   delete `<ProjectName>Tests/Localized.strings`
+
+rename to `<ProjectName>Tests` file folder to "App Specs"
+
