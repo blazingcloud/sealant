@@ -4,6 +4,11 @@ Best Practices Setting up New Project
 Prerequisites
 -------------
 
+### Applications
+Check XCode installation with Command Line Tools and Simulator
+Check [CoverStory](http://code.google.com/p/coverstory/) installation
+
+### Command Line
 Check [Homebrew](http://mxcl.github.com/homebrew/) installation
 
     brew doctor
@@ -17,7 +22,7 @@ Check [rvm](https://rvm.io) installation
     rvm list
 
     rvm alias create ruby-1.9 ruby-1.9.3-p<ANY_PATCH_LEVEL_AVAILABLE>
-
+    
 Create .rmvrc
 
     rvm --rvmrc --create 1.9@<ProjectName>
@@ -111,4 +116,25 @@ In Xcode
 *   remove SenTestingKit.framework as it is included by Pods
 *   Create [SanitySpec.m](Unit Specs/SanitySpec.m) with simple assertion
 *   run Unit Specs in Simulator by Command-U, you might need to create XCode scheme with the same name for Unit Specs target
+*   add [SanitySpec.m](Unit Specs/SanitySpec.m) to both targets: Unit Spec and App Spec
+*   add [SanityTests.m](App Specs/SanityTests.m) to both targets: Unit Spec and App Spec
+*   run Unit Specs and App Specs in Simulator
 
+### [Integration Tests](Integration Tests)
+
+In Xcode
+*   Duplicate `<ProjectName>` main target to Integration Tests
+*   create folder Integration Tests
+*   duplicate main target `<ProjectName>`-Info.plist to `Integration Tests Info.plist`
+*   change Integration Tests target build settings to use `Integration Tests Info.plist`
+*   change product name for Integration Tests to Tests
+
+Add KIF pod to Podfile
+>target :integration do
+>    pod 'KIF'
+>    link_with 'Integration Tests'
+>end
+
+In Xcode
+*   run Integration Tests in Simulator by Command-R, you might need to create XCode scheme with the same name for Integration Tests target
+>
