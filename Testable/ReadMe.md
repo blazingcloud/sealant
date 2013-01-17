@@ -84,6 +84,27 @@ Update pods:
 In Xcode
 *   remove FRAMEWORK_SEARCH_PATHS from App Specs target build settings, as it is defined by Pods
 *   remove SenTestingKit.framework as it is included by Pods
+*   run App Specs in Simulator by Command-U, you might need to create XCode scheme with the same name for App Specs target
 
 ### Create [Unit Specs](Unit Specs) target and folder
+
+In Xcode
+*   select File > New > Target... 
+*   pick Cocoa Unit Tests
+*   name it "Unit Specs"
+*   delete newly added Localized.strings
+
+update Podfile to link specs exclusively with App Specs and Unit Specs:
+
+>    link_with ['App Specs', 'Unit Specs']
+
+instead of just 
+
+>    link_with ['App Specs']
+
+In Xcode
+*   remove FRAMEWORK_SEARCH_PATHS from Unit Specs target build settings, as it is defined by Pods
+*   remove SenTestingKit.framework as it is included by Pods
+*   Create [SanitySpec.m](Unit Specs/SanitySpec.m) with simple assertion
+*   run Unit Specs in Simulator by Command-U, you might need to create XCode scheme with the same name for Unit Specs target
 
