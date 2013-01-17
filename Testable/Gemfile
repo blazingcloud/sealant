@@ -1,0 +1,6 @@
+source :rubygems
+gem "cocoapods"
+git "git://github.com/lukeredpath/xcodebuild-rb.git" do
+    gem "xcodebuild-rb"
+end
+gem "pivotal_git_scripts"
