@@ -5,7 +5,8 @@ Prerequisites
 -------------
 
 ### Applications
-Check XCode installation with Command Line Tools and Simulator
+Check [Xcode](https://developer.apple.com/xcode/) installation with Command Line Tools and Simulator
+
 Check [CoverStory](http://code.google.com/p/coverstory/) installation
 
 ### Command Line
@@ -23,6 +24,8 @@ Check [rvm](https://rvm.io) installation
 
     rvm alias create ruby-1.9 ruby-1.9.3-p<ANY_PATCH_LEVEL_AVAILABLE>
     
+### Setup project folder `<ProjectName>`
+    
 Create .rmvrc
 
     rvm --rvmrc --create 1.9@<ProjectName>
@@ -38,7 +41,7 @@ Load .rvmrc, which should install bundler and all gems listed in Gemfile
 
     cd .
 
-Create New Project `<ProjectName>`
+Create New Xcode Project `<ProjectName>`
 -------------
 
 In Xcode create new project <ProjectName> with ARC, Unit Tests and Storyboard
