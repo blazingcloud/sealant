@@ -95,7 +95,7 @@ Update pods:
 In Xcode
 *   remove FRAMEWORK_SEARCH_PATHS from App Specs target build settings, as it is defined by Pods
 *   remove SenTestingKit.framework as it is included by Pods
-*   run App Specs in Simulator by Command-U, you might need to create XCode scheme with the same name for App Specs target
+*   run App Specs in Simulator by pressing **⌘U**, you might need to create XCode scheme with the same name for App Specs target
 
 ### Create [Unit Specs](Unit Specs) target and folder
 
