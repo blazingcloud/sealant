@@ -72,9 +72,9 @@ In Xcode
 *   rename `<ProjectName>Test-Info.plist` to "App Specs-Info.plist"
 *   delete `<ProjectName>Tests/Localized.strings`
 
-rename to `<ProjectName>Tests` file folder to "App Specs"
+rename to `<ProjectName>Tests` file folder to "App Specs":
 
-    mv `<ProjectName>Tests` "App Specs"
+    mv <ProjectName>Tests "App Specs"
 
 Update Podfile with Kiwi, Hamcrest and Sealant pods exclusively for spec target:
 
@@ -149,3 +149,11 @@ In Xcode
 *   run Integration Tests in Simulator by Command-R, you might need to create XCode scheme with the same name for Integration Tests target
 *   continue setting up KIF with a sample scenario as described in https://github.com/square/KIF#example
 *   or use this example [Integration Tests](Integration Tests)
+
+### Setup CoverStory
+In Xcode
+*   Edit "Unit Specs" scheme by Command-`<`
+*   Edit Test step and add Post-action to run shell script
+>osascript $PROJECT_DIR/Pods/Sealant/Scripts/ShowCoverage.applescript
+*   Select Provide build settings from `<ProjectName>` target
+
