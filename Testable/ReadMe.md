@@ -22,11 +22,13 @@ Check [rvm](https://rvm.io) installation
 
     rvm list
 
+Check ruby-1.9 alias pointing to one of available Ruby installations
+
     rvm alias create ruby-1.9 ruby-1.9.3-p<ANY_PATCH_LEVEL_AVAILABLE>
     
-### Setup project folder `<ProjectName>`
+### Setup project folder `<ProjectName>` and ruby gems
     
-Create .rmvrc
+Create .rmvrc by running the following command
 
     rvm --rvmrc --create 1.9@<ProjectName>
     cat .rvmrc
@@ -138,6 +140,11 @@ Add KIF pod to Podfile
 >    link_with 'Integration Tests'
 >end
 
+Update pods:
+
+    pod update
+    
 In Xcode
 *   run Integration Tests in Simulator by Command-R, you might need to create XCode scheme with the same name for Integration Tests target
->
+*   continue setting up KIF with a sample scenario as described in https://github.com/square/KIF#example
+*   or use this example [Integration Tests](Integration Tests)
