@@ -48,3 +48,19 @@ In Xcode
 
 rename to `<ProjectName>Tests` file folder to "App Specs"
 
+
+### Install Cocoapods
+
+Copy Podfile from example: [Podfile](Podfile)
+
+    cat Podfile
+    pod install
+    
+This will create XCode `<ProjectName>` workspace. Open workspace in XCode and use it instead of opening project file.
+
+In Xcode
+*   remove FRAMEWORK_SEARCH_PATHS from App Specs target build settings, as it is defined by Pods
+*   remove SenTestingKit.framework as it is included by Pods
+
+### Create [Unit Specs](Unit Specs) target and folder
+
