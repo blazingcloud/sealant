@@ -54,7 +54,10 @@ rename to `<ProjectName>Tests` file folder to "App Specs"
 Create Podfile with one pod:
 
 >platform :ios, :deployment_target => '6.0'
+
 >pod 'TestFlightSDK'
+
+>link_with ['`<ProjectName>`']
 
 Install pod and create workspace:
 
@@ -63,6 +66,7 @@ Install pod and create workspace:
 This will create XCode `<ProjectName>` workspace. Open workspace in XCode and use it instead of opening project file.
 
 Update Podfile to link with Kiwi and Hamcrest:
+
 
 
 In Xcode
