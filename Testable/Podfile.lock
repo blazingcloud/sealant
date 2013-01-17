@@ -10,14 +10,14 @@ PODS:
 DEPENDENCIES:
 - KIF
 - Kiwi with OCHamcrest (from `https://gist.github.com/raw/4541144/latest_kiwi_with_hamcrest.podspec')
-- Sealant (from `https://github.com/blazingcloud/sealant.git')
+- Sealant (from `ssh://git@github.com/blazingcloud/sealant.git')
 - TestFlightSDK
 
 EXTERNAL SOURCES:
   Kiwi with OCHamcrest:
     :podspec: https://gist.github.com/raw/4541144/latest_kiwi_with_hamcrest.podspec
   Sealant:
-    :git: https://github.com/blazingcloud/sealant.git
+    :git: ssh://git@github.com/blazingcloud/sealant.git
 
 SPEC CHECKSUMS:
   TestFlightSDK: 29e194fb148e4861f92e4c1195b9697e1f3ad19a
