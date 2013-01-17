@@ -38,7 +38,7 @@ Create New Project
 
 In Xcode create new project <ProjectName> with ARC, Unit Tests and Storyboard
 
-### App Specs
+### [App Specs](App Specs)
     rename <ProjectName>Tests target to "App Specs"
 	rename <ProjectName>Tests.m file to SanityTests.m, add 1+1=2 assertion
 	rename <ProjectName>Test-Info.plist to [App Specs-Info.plist](App Specs/App Specs-Info.plist)
