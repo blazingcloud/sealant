@@ -3,9 +3,14 @@
  
  Show Coverage after running tests in Xcode
 
+
  Set up - edit XCode scheme and add Post action in Test step:
     osascript $PROJECT_DIR/<path_to_this_script>/ShowCoverage.applescript
+e.g. if you install this via Sealant cocoapod:
+    osascript $PROJECT_DIR/Pods/Sealant/Scripts/ShowCoverage.applescript
+    
  Select Provide Build Settings from Application Target, not Unit Tests
+ 
  Use default /bin/sh shell
  *)
 set arch to system attribute "PLATFORM_PREFERRED_ARCH"
