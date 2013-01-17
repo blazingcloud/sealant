@@ -39,7 +39,9 @@ Create New Project
 In Xcode create new project <ProjectName> with ARC, Unit Tests and Storyboard
 
 ### [App Specs](App Specs)
-In Xcode rename <ProjectName>Tests target to "App Specs"
-rename <ProjectName>Tests.m file to SanityTests.m, fix failing test as in [SanityTests.m](App Specs/SanityTests.m)
-rename <ProjectName>Test-Info.plist to "App Specs-Info.plist"
-delete <ProjectName>Tests/Localized.strings
+
+In Xcode 
+*   rename <ProjectName>Tests target to "App Specs"
+*   rename <ProjectName>Tests.m file to SanityTests.m, fix failing test as in [SanityTests.m](App Specs/SanityTests.m)
+*   rename <ProjectName>Test-Info.plist to "App Specs-Info.plist"
+*   delete <ProjectName>Tests/Localized.strings
