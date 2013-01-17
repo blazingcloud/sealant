@@ -1,6 +1,9 @@
 Best Practices Setting up New Project
 ==================
 
+Prerequisites
+-------------
+
 Check [Homebrew](http://mxcl.github.com/homebrew/) installation
 
     brew doctor
@@ -22,6 +25,21 @@ Create .rmvrc
     
 Edit .rvmrc to uncomment section for bundler, result will look similar to this [.rvmrc](.rvmrc)
 
-Copy Gemfile from example: [Gemfile]
+Copy Gemfile from example: [Gemfile](Gemfile)
 
     cat Gemfile
+
+Load .rvmrc, which should install bundler and all gems listed in Gemfile
+
+    cd .
+
+Create New Project
+-------------
+
+In Xcode create new project <ProjectName> with ARC, Unit Tests and Storyboard
+
+### App Specs
+    rename <ProjectName>Tests target to "App Specs"
+	rename <ProjectName>Tests.m file to SanityTests.m, add 1+1=2 assertion
+	rename <ProjectName>Test-Info.plist to [App Specs-Info.plist](App Specs/App Specs-Info.plist)
+	delete <ProjectName>Tests/Localized.strings
