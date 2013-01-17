@@ -102,6 +102,10 @@ instead of just
 
 >    link_with ['App Specs']
 
+Update pods:
+
+    pod update
+    
 In Xcode
 *   remove FRAMEWORK_SEARCH_PATHS from Unit Specs target build settings, as it is defined by Pods
 *   remove SenTestingKit.framework as it is included by Pods
