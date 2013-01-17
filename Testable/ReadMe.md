@@ -48,17 +48,6 @@ Create New Xcode Project `<ProjectName>`
 
 In Xcode create new project <ProjectName> with ARC, Unit Tests and Storyboard
 
-### Create [App Specs](App Specs) target and folder
-
-In Xcode 
-*   rename `<ProjectName>Tests` target to "App Specs"
-*   rename `<ProjectName>Tests.m` file to SanityTests.m, fix failing test as in [SanityTests.m](App Specs/SanityTests.m)
-*   rename `<ProjectName>Test-Info.plist` to "App Specs-Info.plist"
-*   delete `<ProjectName>Tests/Localized.strings`
-
-rename to `<ProjectName>Tests` file folder to "App Specs"
-
-
 ### Install Cocoapods
 
 Create Podfile with one pod for the main target:
@@ -74,6 +63,18 @@ Install pod and create workspace:
     pod install
     
 This will create XCode `<ProjectName>` workspace. Open workspace in XCode and use it instead of opening project file.
+
+### Create [App Specs](App Specs) target and folder
+
+In Xcode 
+*   rename `<ProjectName>Tests` target to "App Specs"
+*   rename `<ProjectName>Tests.m` file to SanityTests.m, fix failing test as in [SanityTests.m](App Specs/SanityTests.m)
+*   rename `<ProjectName>Test-Info.plist` to "App Specs-Info.plist"
+*   delete `<ProjectName>Tests/Localized.strings`
+
+rename to `<ProjectName>Tests` file folder to "App Specs"
+
+    mv `<ProjectName>Tests` "App Specs"
 
 Update Podfile with Kiwi, Hamcrest and Sealant pods exclusively for spec target:
 
