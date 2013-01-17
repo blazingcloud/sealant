@@ -19,7 +19,7 @@ Create .rmvrc
 
     rvm --rvmrc --create 1.9@<ProjectName>
     
-Edit .rvmrc to uncomment section for bundler, result will look similar to this (.rvmrc)[https://github.com/blazingcloud/sealant/blob/master/Testable/.rvmrc]
+Edit .rvmrc to uncomment section for bundler, result will look similar to this [.rvmrc](.rvmrc)
 
 create Gemfile or copy it from this example: (Gemfile)[https://github.com/blazingcloud/sealant/blob/master/Testable/Gemfile]
 
