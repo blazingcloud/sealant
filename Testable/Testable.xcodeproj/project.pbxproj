@@ -45,6 +45,8 @@
 		CADD70D016A63C8E00F7BF57 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CADD06D616A5E7320094BB16 /* MainStoryboard.storyboard */; };
 		CADD70EE16A6400D00F7BF57 /* EXTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = CADD70ED16A6400D00F7BF57 /* EXTestController.m */; };
 		CADD70F216A641C300F7BF57 /* KIFTestScenario+EXAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CADD70F116A641C300F7BF57 /* KIFTestScenario+EXAdditions.m */; };
+		CADD712916A7899000F7BF57 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CADD712816A7899000F7BF57 /* Icon.png */; };
+		CADD712B16A7899700F7BF57 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CADD712A16A7899700F7BF57 /* Icon@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,8 @@
 		CADD70EC16A6400D00F7BF57 /* EXTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTestController.h; sourceTree = "<group>"; };
 		CADD70ED16A6400D00F7BF57 /* EXTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTestController.m; sourceTree = "<group>"; };
 		CADD70F116A641C300F7BF57 /* KIFTestScenario+EXAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestScenario+EXAdditions.m"; sourceTree = "<group>"; };
+		CADD712816A7899000F7BF57 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
+		CADD712A16A7899700F7BF57 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		D356B964029641C5A44D6E66 /* libPods-integration.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-integration.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F47F8E96933A47B394F40349 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -227,6 +231,8 @@
 				CADD06CA16A5E7320094BB16 /* main.m */,
 				CADD06CC16A5E7320094BB16 /* Testable-Prefix.pch */,
 				CADD06D016A5E7320094BB16 /* Default.png */,
+				CADD712A16A7899700F7BF57 /* Icon@2x.png */,
+				CADD712816A7899000F7BF57 /* Icon.png */,
 				CADD06D216A5E7320094BB16 /* Default@2x.png */,
 				CADD06D416A5E7320094BB16 /* Default-568h@2x.png */,
 			);
@@ -387,6 +393,8 @@
 				CADD06D316A5E7320094BB16 /* Default@2x.png in Resources */,
 				CADD06D516A5E7320094BB16 /* Default-568h@2x.png in Resources */,
 				CADD06D816A5E7320094BB16 /* MainStoryboard.storyboard in Resources */,
+				CADD712916A7899000F7BF57 /* Icon.png in Resources */,
+				CADD712B16A7899700F7BF57 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
