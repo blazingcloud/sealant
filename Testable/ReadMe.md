@@ -51,12 +51,19 @@ rename to `<ProjectName>Tests` file folder to "App Specs"
 
 ### Install Cocoapods
 
-Copy Podfile from example: [Podfile](Podfile)
+Create Podfile with one pod:
 
-    cat Podfile
+>platform :ios, :deployment_target => '6.0'
+>pod 'TestFlightSDK'
+
+Install pod and create workspace:
+
     pod install
     
 This will create XCode `<ProjectName>` workspace. Open workspace in XCode and use it instead of opening project file.
+
+Update Podfile to link with Kiwi and Hamcrest:
+
 
 In Xcode
 *   remove FRAMEWORK_SEARCH_PATHS from App Specs target build settings, as it is defined by Pods
