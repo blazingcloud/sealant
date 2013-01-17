@@ -15,3 +15,10 @@ Check [rvm](https://rvm.io) installation
 
     rvm alias create ruby-1.9 ruby-1.9.3-p<ANY_PATCH_LEVEL_AVAILABLE>
 
+Create .rmvrc
+
+    rvm --rvmrc --create 1.9@<ProjectName>
+    
+Edit .rvmrc to uncomment section for bundler
+
+create Gemfile, here is the example (Gemfile)[Gemfile]
