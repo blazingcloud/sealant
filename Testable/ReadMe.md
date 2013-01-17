@@ -64,7 +64,7 @@ Install pod and create workspace:
     
 This will create XCode `<ProjectName>` workspace. Open workspace in XCode and use it instead of opening project file.
 
-### Create [App Specs](App Specs) target and folder
+### Create [App Specs](App Specs) target and folder for Specs
 
 In Xcode 
 *   rename `<ProjectName>Tests` target to "App Specs"
@@ -97,7 +97,7 @@ In Xcode
 *   remove SenTestingKit.framework as it is included by Pods
 *   run App Specs in Simulator by pressing **⌘U**, you might need to create XCode scheme with the same name for App Specs target
 
-### Create [Unit Specs](Unit Specs) target and folder
+### Create [Unit Specs](Unit Specs) target and folder for Specs
 
 In Xcode
 *   select File > New > Target... 
@@ -126,7 +126,7 @@ In Xcode
 *   add [SanityTests.m](App Specs/SanityTests.m) to both targets: Unit Spec and App Spec
 *   run Unit Specs and App Specs in Simulator
 
-### [Integration Tests](Integration Tests)
+### Create [Integration Tests](Integration Tests) target with [KIF](https://github.com/square/KIF)
 
 In Xcode
 *   Duplicate `<ProjectName>` main target to Integration Tests
