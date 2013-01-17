@@ -51,7 +51,7 @@ rename to `<ProjectName>Tests` file folder to "App Specs"
 
 ### Install Cocoapods
 
-Create Podfile with one pod:
+Create Podfile with one pod for the main target:
 
 >platform :ios, :deployment_target => '6.0'
 
@@ -65,7 +65,7 @@ Install pod and create workspace:
     
 This will create XCode `<ProjectName>` workspace. Open workspace in XCode and use it instead of opening project file.
 
-Update Podfile to link with Kiwi and Hamcrest and Sealant:
+Update Podfile with Kiwi, Hamcrest and Sealant pods exclusively for spec target:
 
 >target :spec, :exclusive => true do
 
@@ -79,9 +79,8 @@ Update Podfile to link with Kiwi and Hamcrest and Sealant:
 
 Update pods:
 
-    pod install
+    pod update
     
-
 In Xcode
 *   remove FRAMEWORK_SEARCH_PATHS from App Specs target build settings, as it is defined by Pods
 *   remove SenTestingKit.framework as it is included by Pods
