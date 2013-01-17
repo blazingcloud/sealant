@@ -1,7 +1,7 @@
 Sealant is iOS Testing Glue
 =======
 
-Fixtures, Matchers and Helpers packaged into Cocoa Pod
+Fixtures, Matchers and Helpers packaged into one [Cocoa Pod](http://cocoapods.org).
 
 
 Installation
