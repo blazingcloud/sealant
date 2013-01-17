@@ -6,6 +6,6 @@ Pod::Spec.new do |s|
   s.authors         = { 'Blazing Pair' => 'blazingpair@blazingcloud.net', 'Paul Zabelin' => 'paul@blazingcloud.net' }
   s.license         = { :type => 'MIT' }
   s.source          = { :git => 'https://github.com/blazingcloud/sealant.git' }
-  s.source_files    = ''
+  s.source_files    = 'Classes'
   s.preserve_paths  = 'Scripts'
 end
