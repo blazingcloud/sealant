@@ -121,7 +121,7 @@ In Xcode
 *   remove FRAMEWORK_SEARCH_PATHS from Unit Specs target build settings, as it is defined by Pods
 *   remove SenTestingKit.framework as it is included by Pods
 *   Create [SanitySpec.m](Unit Specs/SanitySpec.m) with simple assertion
-*   run Unit Specs in Simulator by Command-U, you might need to create XCode scheme with the same name for Unit Specs target
+*   run Unit Specs in Simulator by pressing **⌘U**,, you might need to create XCode scheme with the same name for Unit Specs target
 *   add [SanitySpec.m](Unit Specs/SanitySpec.m) to both targets: Unit Spec and App Spec
 *   add [SanityTests.m](App Specs/SanityTests.m) to both targets: Unit Spec and App Spec
 *   run Unit Specs and App Specs in Simulator
@@ -146,13 +146,13 @@ Update pods:
     pod update
     
 In Xcode
-*   run Integration Tests in Simulator by Command-R, you might need to create XCode scheme with the same name for Integration Tests target
+*   run Integration Tests in Simulator by pressing **⌘R**,, you might need to create XCode scheme with the same name for Integration Tests target
 *   continue setting up KIF with a sample scenario as described in https://github.com/square/KIF#example
 *   or use this example [Integration Tests](Integration Tests)
 
 ### Setup CoverStory
 In Xcode
-*   Edit "Unit Specs" scheme by `⌘<`
+*   Edit "Unit Specs" scheme by pressing **⌘<**,
 *   Edit Test step and add Post-action to run shell script
 >osascript $PROJECT_DIR/Pods/Sealant/Scripts/ShowCoverage.applescript
 *   Select Provide build settings from `<ProjectName>` target
