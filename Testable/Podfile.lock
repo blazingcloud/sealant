@@ -4,10 +4,9 @@ PODS:
 - Kiwi (2.0.2.dev):
   - OCHamcrest
 - OCHamcrest (1.9)
-- Sealant (0.1):
-  - Sealant/Kiwi (= 0.1)
-- Sealant/Kiwi (0.1):
-  - Kiwi
+- Sealant (0.0.1):
+  - Sealant/Sealant (= 0.0.1)
+- Sealant/Sealant (0.0.1)
 - TestFlightSDK (1.2)
 
 DEPENDENCIES:
@@ -26,8 +25,8 @@ SPEC CHECKSUMS:
   TestFlightSDK: 29e194fb148e4861f92e4c1195b9697e1f3ad19a
   Kiwi: 1eefa5fb0ea66ee196fdb0e885caee52db3ce8ae
   OCHamcrest: f8393efd5a49d91879be573635d6183effacc0ab
-  Sealant: c41b7cc9cd6e57e6e71379270602a5121498a612
-  Sealant/Kiwi: c41b7cc9cd6e57e6e71379270602a5121498a612
+  Sealant: 43ad0926c79c0cdd7c08f7fd67cb321591df9531
+  Sealant/Sealant: 43ad0926c79c0cdd7c08f7fd67cb321591df9531
   KIF: 7b3e1a55d4024d023d5a4ac661b0498be8d549d9
 
 COCOAPODS: 0.16.1
