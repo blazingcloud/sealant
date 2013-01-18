@@ -152,7 +152,7 @@ In Xcode
 
 ### Setup CoverStory
 In Xcode
-*   Edit "Unit Specs" scheme by pressing **⌘<**,
+*   Edit "Unit Specs" scheme by pressing **⌘<**
 *   Edit Test step and add Post-action to run shell script
 >osascript $PROJECT_DIR/Pods/Sealant/Scripts/ShowCoverage.applescript
 *   Select Provide build settings from `<ProjectName>` target
