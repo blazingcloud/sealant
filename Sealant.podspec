@@ -8,4 +8,5 @@ Pod::Spec.new do |s|
   s.source          = { :git => 'https://github.com/blazingcloud/sealant.git' }
   s.source_files    = 'Classes'
   s.preserve_paths  = 'Scripts'
+  s.requires_arc    = true
 end
