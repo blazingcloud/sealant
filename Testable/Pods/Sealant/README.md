@@ -25,3 +25,8 @@ Please review [Best practices](https://github.com/blazingcloud/sealant/tree/mast
 *   [Kiwi](https://github.com/allending/Kiwi)
 *   [Hamcrest](http://code.google.com/p/hamcrest/wiki/TutorialObjectiveC)
 *   [KIF](https://github.com/square/KIF)
+
+Documentation
+------
+
+Documentation is on [Wiki](/blazingcloud/sealant/wiki)
