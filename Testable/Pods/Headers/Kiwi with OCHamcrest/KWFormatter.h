@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWFormatter.h
+../../Kiwi with OCHamcrest/Classes/KWFormatter.h

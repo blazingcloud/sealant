@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWWorkarounds.h
+../../Kiwi with OCHamcrest/Classes/KWWorkarounds.h

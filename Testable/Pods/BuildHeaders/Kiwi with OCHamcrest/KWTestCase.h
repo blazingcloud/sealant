@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWTestCase.h
+../../Kiwi with OCHamcrest/Classes/KWTestCase.h

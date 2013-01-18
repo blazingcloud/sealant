@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWUserDefinedMatcher.h
+../../Kiwi with OCHamcrest/Classes/KWUserDefinedMatcher.h

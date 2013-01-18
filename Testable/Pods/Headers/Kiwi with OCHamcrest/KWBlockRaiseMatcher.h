@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWBlockRaiseMatcher.h
+../../Kiwi with OCHamcrest/Classes/KWBlockRaiseMatcher.h

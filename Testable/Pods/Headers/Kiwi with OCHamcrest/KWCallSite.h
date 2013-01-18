@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWCallSite.h
+../../Kiwi with OCHamcrest/Classes/KWCallSite.h

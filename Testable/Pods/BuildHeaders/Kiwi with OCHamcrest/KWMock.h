@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWMock.h
+../../Kiwi with OCHamcrest/Classes/KWMock.h

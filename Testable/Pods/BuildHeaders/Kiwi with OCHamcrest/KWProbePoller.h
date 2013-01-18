@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWProbePoller.h
+../../Kiwi with OCHamcrest/Classes/KWProbePoller.h

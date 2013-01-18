@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KiwiMacros.h
+../../Kiwi with OCHamcrest/Classes/KiwiMacros.h

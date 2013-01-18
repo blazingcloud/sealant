@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/NSObject+KiwiVerifierAdditions.h
+../../Kiwi with OCHamcrest/Classes/NSObject+KiwiVerifierAdditions.h

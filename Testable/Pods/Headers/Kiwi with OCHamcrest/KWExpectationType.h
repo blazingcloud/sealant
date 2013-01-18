@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWExpectationType.h
+../../Kiwi with OCHamcrest/Classes/KWExpectationType.h

@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KiwiConfiguration.h
+../../Kiwi with OCHamcrest/Classes/KiwiConfiguration.h

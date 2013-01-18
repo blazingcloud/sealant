@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWExampleNodeVisitor.h
+../../Kiwi with OCHamcrest/Classes/KWExampleNodeVisitor.h

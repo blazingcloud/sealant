@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWFutureObject.h
+../../Kiwi with OCHamcrest/Classes/KWFutureObject.h

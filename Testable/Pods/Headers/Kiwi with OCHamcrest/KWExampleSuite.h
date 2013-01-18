@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWExampleSuite.h
+../../Kiwi with OCHamcrest/Classes/KWExampleSuite.h

@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWContextNode.h
+../../Kiwi with OCHamcrest/Classes/KWContextNode.h

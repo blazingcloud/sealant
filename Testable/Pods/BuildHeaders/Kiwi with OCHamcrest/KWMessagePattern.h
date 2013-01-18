@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWMessagePattern.h
+../../Kiwi with OCHamcrest/Classes/KWMessagePattern.h

@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWFailure.h
+../../Kiwi with OCHamcrest/Classes/KWFailure.h

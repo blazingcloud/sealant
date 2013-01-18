@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWVerifying.h
+../../Kiwi with OCHamcrest/Classes/KWVerifying.h

@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWStringUtilities.h
+../../Kiwi with OCHamcrest/Classes/KWStringUtilities.h

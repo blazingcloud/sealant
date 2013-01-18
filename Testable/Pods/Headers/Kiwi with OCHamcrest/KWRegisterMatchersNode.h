@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWRegisterMatchersNode.h
+../../Kiwi with OCHamcrest/Classes/KWRegisterMatchersNode.h

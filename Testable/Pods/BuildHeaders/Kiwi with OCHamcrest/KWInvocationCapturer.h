@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWInvocationCapturer.h
+../../Kiwi with OCHamcrest/Classes/KWInvocationCapturer.h

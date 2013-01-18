@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWBeSubclassOfClassMatcher.h
+../../Kiwi with OCHamcrest/Classes/KWBeSubclassOfClassMatcher.h

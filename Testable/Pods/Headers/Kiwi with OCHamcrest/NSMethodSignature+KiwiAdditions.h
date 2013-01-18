@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/NSMethodSignature+KiwiAdditions.h
+../../Kiwi with OCHamcrest/Classes/NSMethodSignature+KiwiAdditions.h

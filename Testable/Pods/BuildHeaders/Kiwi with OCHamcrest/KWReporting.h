@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWReporting.h
+../../Kiwi with OCHamcrest/Classes/KWReporting.h

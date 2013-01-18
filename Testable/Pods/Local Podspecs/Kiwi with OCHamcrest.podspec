@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.authors         = { 'Allen Ding' => 'allen@allending.com', 'Luke Redpath' => 'luke@lukeredpath.co.uk' }
   s.license         = { :type => 'MIT', :file => 'License.txt' }
   s.source          = { :git => 'https://github.com/allending/Kiwi.git'}
-  s.source_files    = FileList['Kiwi/*.{h,m}'].exclude(/KWStringPrefixMatcher/).exclude(/KWStringContainsMatcher/)
+  s.source_files    = FileList['Classes/*.{h,m}'].exclude(/KWStringPrefixMatcher/).exclude(/KWStringContainsMatcher/)
   s.framework       = 'SenTestingKit'
   # HC_SHORTHAND is defined for project test target for naming convenience
   s.xcconfig        = { 
@@ -19,11 +19,12 @@ Pod::Spec.new do |s|
   s.dependency 'OCHamcrest'
   def s.post_install(target)
     # Fix an Hamcrest integration by using Hamcrest matcher, instead of the minimal version of matcher protocol
-    header = (pod_destroot + 'Kiwi/KWHCMatcher.h')
-    header_contents = header.read.gsub(/@protocol.+@end/m,'#import <HCMatcher.h>')
+    header = (pod_destroot + 'Classes/KWHCMatcher.h')
+    header_contents = File.read(header)
+    header_contents.gsub!(/@protocol.+@end/m,'#import <HCMatcher.h>')
     File.write(header, header_contents)
     # Remove uses of minimal version of matcher protocol
-    header = (pod_destroot + 'Kiwi/Kiwi.h')
+    header = (pod_destroot + 'Classes/Kiwi.h')
     header_contents = File.read(header)
     header_contents.gsub!(/#import "KWStringPrefixMatcher.h"/,'')
     header_contents.gsub!(/#import "KWStringContainsMatcher.h"/,'')

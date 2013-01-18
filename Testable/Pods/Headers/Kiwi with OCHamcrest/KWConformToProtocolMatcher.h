@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWConformToProtocolMatcher.h
+../../Kiwi with OCHamcrest/Classes/KWConformToProtocolMatcher.h

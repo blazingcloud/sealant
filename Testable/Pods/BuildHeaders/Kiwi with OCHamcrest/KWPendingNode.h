@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWPendingNode.h
+../../Kiwi with OCHamcrest/Classes/KWPendingNode.h

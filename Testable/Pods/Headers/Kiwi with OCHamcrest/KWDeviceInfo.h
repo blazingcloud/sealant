@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWDeviceInfo.h
+../../Kiwi with OCHamcrest/Classes/KWDeviceInfo.h

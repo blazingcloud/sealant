@@ -1,1 +1,1 @@
-../../Kiwi with OCHamcrest/Kiwi/KWCaptureSpy.h
+../../Kiwi with OCHamcrest/Classes/KWCaptureSpy.h
