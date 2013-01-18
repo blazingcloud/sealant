@@ -9,4 +9,8 @@ Pod::Spec.new do |s|
   s.source_files    = 'Classes'
   s.preserve_paths  = 'Scripts'
   s.requires_arc    = true
+  s.subspec 'Kiwi' do |kw|
+    kw.source_files    = 'Classes/Kiwi'
+    kw.dependency 'Kiwi'
+  end
 end
