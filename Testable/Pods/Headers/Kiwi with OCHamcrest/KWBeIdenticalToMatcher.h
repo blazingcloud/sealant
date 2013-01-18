@@ -1,1 +1,0 @@
-../../Kiwi with OCHamcrest/Classes/KWBeIdenticalToMatcher.h

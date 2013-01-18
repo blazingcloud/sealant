@@ -1,29 +1,33 @@
 
 PODS:
 - KIF (0.0.1)
-- Kiwi with OCHamcrest (1.1.1.dev):
+- Kiwi (2.0.2.dev):
   - OCHamcrest
 - OCHamcrest (1.9)
-- Sealant (0.1)
+- Sealant (0.1):
+  - Sealant/Kiwi (= 0.1)
+- Sealant/Kiwi (0.1):
+  - Kiwi
 - TestFlightSDK (1.2)
 
 DEPENDENCIES:
 - KIF
-- Kiwi with OCHamcrest (from `https://gist.github.com/raw/4541144/latest_kiwi_with_hamcrest.podspec')
+- Kiwi (from `https://gist.github.com/raw/4541144/latest_kiwi_with_hamcrest.podspec')
 - Sealant (from `ssh://git@github.com/blazingcloud/sealant.git')
 - TestFlightSDK
 
 EXTERNAL SOURCES:
-  Kiwi with OCHamcrest:
+  Kiwi:
     :podspec: https://gist.github.com/raw/4541144/latest_kiwi_with_hamcrest.podspec
   Sealant:
     :git: ssh://git@github.com/blazingcloud/sealant.git
 
 SPEC CHECKSUMS:
   TestFlightSDK: 29e194fb148e4861f92e4c1195b9697e1f3ad19a
-  Kiwi with OCHamcrest: 13708843587d920f9363fce20aebc7f8047269e4
+  Kiwi: 1eefa5fb0ea66ee196fdb0e885caee52db3ce8ae
   OCHamcrest: f8393efd5a49d91879be573635d6183effacc0ab
-  Sealant: e9bb0c45b34e7a2f93d8eb6d7b9d80337b65ca9d
+  Sealant: c41b7cc9cd6e57e6e71379270602a5121498a612
+  Sealant/Kiwi: c41b7cc9cd6e57e6e71379270602a5121498a612
   KIF: 7b3e1a55d4024d023d5a4ac661b0498be8d549d9
 
 COCOAPODS: 0.16.1

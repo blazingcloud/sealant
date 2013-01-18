@@ -9,7 +9,7 @@
 #pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 
 NSString* const NETWORK_DISABLED_WHILE_TESTING = @"attempt to create network connection from unit tests";
-// Disable network connections while running unit tests
+
 @implementation NSURLConnection (Sealant)
 
 + (NSURLConnection*)alloc {
