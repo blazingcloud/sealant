@@ -1,0 +1,1 @@
+../../Sealant/Classes/BZLogCapture.h
