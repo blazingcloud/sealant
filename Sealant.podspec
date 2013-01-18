@@ -13,4 +13,8 @@ Pod::Spec.new do |s|
     kw.source_files    = 'Classes/Kiwi'
     kw.dependency 'Kiwi'
   end
+  s.subspec 'MKNetworkKit' do |mk|
+    mk.source_files    = 'Classes/MKNetworkKit'
+    mk.dependency 'MKNetworkKit'
+  end
 end
