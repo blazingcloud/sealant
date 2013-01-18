@@ -97,7 +97,7 @@ In Xcode
 *   remove SenTestingKit.framework as it is included by Pods
 *   run App Specs in Simulator by pressing **⌘U**, you might need to create XCode scheme with the same name for App Specs target
 
-### Create [Unit Specs](Unit Specs) target and folder for Specs
+### Create [Unit Specs](/blazingcloud/sealant/blob/master/Testable/Unit Specs) target and folder for Specs
 
 In Xcode
 *   select File > New > Target... 
