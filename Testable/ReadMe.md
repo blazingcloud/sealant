@@ -33,7 +33,7 @@ Create .rmvrc by running the following command
     rvm --rvmrc --create 1.9@<ProjectName>
     cat .rvmrc
     
-Edit .rvmrc to uncomment section for bundler, result will look similar to this [.rvmrc](.rvmrc)
+Edit .rvmrc to uncomment section for bundler, result will look similar to this [.rvmrc](/blazingcloud/sealant/blob/master/Testable/.rvmrc)
 
 Copy Gemfile from example: [Gemfile](Gemfile)
 
