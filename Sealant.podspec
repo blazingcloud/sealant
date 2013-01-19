@@ -25,4 +25,13 @@ Pod::Spec.new do |s|
     mk.dependency 'MKNetworkKit'
     mk.dependency 'JRSwizzle'
   end
+
+  s.subspec 'Objection' do |ob|
+    ob.source_files    = 'Classes/Objection/*.{h,m}'
+    ob.dependency 'Objection'
+  end
+  
+  s.subspec 'TestFlight' do |tf|
+    tf.source_files    = 'Classes/TestFlight/*.{h,m}'
+  end
 end
