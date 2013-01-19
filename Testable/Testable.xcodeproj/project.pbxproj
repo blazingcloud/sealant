@@ -47,6 +47,8 @@
 		CADD70F216A641C300F7BF57 /* KIFTestScenario+EXAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CADD70F116A641C300F7BF57 /* KIFTestScenario+EXAdditions.m */; };
 		CADD712916A7899000F7BF57 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CADD712816A7899000F7BF57 /* Icon.png */; };
 		CADD712B16A7899700F7BF57 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CADD712A16A7899700F7BF57 /* Icon@2x.png */; };
+		CADD727016AA257D00F7BF57 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADD06C216A5E7320094BB16 /* CoreGraphics.framework */; };
+		CADD727216AA257E00F7BF57 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADD06C216A5E7320094BB16 /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +111,7 @@
 				CA5DCB1016A625D800CBB81D /* UIKit.framework in Frameworks */,
 				CA5DCB1116A625D800CBB81D /* Foundation.framework in Frameworks */,
 				AE48FD5D3B684C9C8A53024A /* libPods-spec.a in Frameworks */,
+				CADD727216AA257E00F7BF57 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +133,7 @@
 				CADD06E416A5E7330094BB16 /* UIKit.framework in Frameworks */,
 				CADD06E516A5E7330094BB16 /* Foundation.framework in Frameworks */,
 				045C7E6E7DAF43E8B34BDA8A /* libPods-spec.a in Frameworks */,
+				CADD727016AA257D00F7BF57 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
