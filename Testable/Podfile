@@ -11,6 +11,7 @@ target :spec, :exclusive => true do
     pod 'Kiwi', :podspec => 'https://gist.github.com/raw/4541144/latest_kiwi_with_hamcrest.podspec'
     pod 'Sealant', :git => 'ssh://git@github.com/blazingcloud/sealant.git'
     pod 'Sealant/Kiwi'
+    pod 'Sealant/MKNetworkKit'
     link_with ['App Specs', 'Unit Specs']
 end
 
