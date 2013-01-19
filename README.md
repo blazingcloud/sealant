@@ -16,6 +16,10 @@ Use [Cocoapods](http://cocoapods.org) to install Sealant:
 
 > end
 
+The above installs minimal generic set of utilities without any dependencies. To install full set specify:
+
+> pod 'Sealant/Kiwi'
+> pod 'Sealant/MKNetworkKit'
 
 Example
 ------
