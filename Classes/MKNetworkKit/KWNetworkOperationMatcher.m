@@ -48,7 +48,7 @@ typedef enum {
 - (void)processSuccessfulResponse:(NSString *)responseString {
     NSData *cachedData = nil;
     if ([responseString hasSuffix:@".xml"] || [responseString hasSuffix:@".png"]|| [responseString hasSuffix:@".json"]) {
-        cachedData = [SpecHelper testDataFromFile:responseString];
+        cachedData = [BZSpecHelper testDataFromFile:responseString];
     } else {
         cachedData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
     }
