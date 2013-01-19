@@ -23,5 +23,6 @@ Pod::Spec.new do |s|
   s.subspec 'MKNetworkKit' do |mk|
     mk.source_files    = 'Classes/MKNetworkKit/*.{h,m}'
     mk.dependency 'MKNetworkKit'
+    mk.dependency 'JRSwizzle'
   end
 end
