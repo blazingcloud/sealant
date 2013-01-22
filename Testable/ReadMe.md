@@ -80,7 +80,7 @@ Update Podfile with Kiwi, Hamcrest and Sealant pods exclusively for spec target:
 
 >target :spec, :exclusive => true do
 
->    pod 'Kiwi with OCHamcrest', :podspec => 'https://gist.github.com/raw/4541144/latest_kiwi_with_hamcrest.podspec'
+>    pod 'Kiwi', :podspec => 'https://gist.github.com/raw/4541144/latest_kiwi_with_hamcrest.podspec'
 
 >    pod 'Sealant', :git => 'ssh://git@github.com/blazingcloud/sealant.git'
 
