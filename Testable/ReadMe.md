@@ -159,3 +159,7 @@ In Xcode
 
 *   Select Provide build settings from `<ProjectName>` target
 
+### Add Rakefile
+For the convenience of running tests from the command line
+Customize example [Rakefile.rb](/blazingcloud/sealant/blob/master/Testable/Rakefile.rb) and save it in the workspace root directory
+
