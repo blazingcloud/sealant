@@ -7,6 +7,7 @@
 //
 
 #import "TestFlight.h"
+#import "BZLog.h"
 
 #undef TFLog
 void TFLog(id fmt, ...);
