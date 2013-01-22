@@ -1,0 +1,92 @@
+#import "JSObjectionInjectorEntry.h"
+#import "JSObjection.h"
+#import "JSObjectionUtils.h"
+
+@interface JSObjectionInjectorEntry()
+- (void)notifyObjectThatItIsReady: (id)object;
+- (id)buildObject:(NSArray *)arguments;
+- (id)argumentsForObject:(NSArray *)givenArguments;
+- (SEL)initializerForObject;
+@end
+
+
+@implementation JSObjectionInjectorEntry
+@synthesize lifeCycle = _lifeCycle; 
+@synthesize classEntry = _classEntry;
+
+#pragma mark Instance Methods
+#pragma mark -
+
+- (id)initWithClass:(Class)theClass lifeCycle:(JSObjectionInstantiationRule)theLifeCycle 
+{
+  if ((self = [super init])) {
+    _lifeCycle = theLifeCycle;
+    _classEntry = theClass;
+    _storageCache = nil;
+  }
+  
+  return self;
+}
+
+- (id)extractObject:(NSArray *)arguments {
+  if (self.lifeCycle == JSObjectionInstantiationRuleNormal || !_storageCache) {
+      return [self buildObject:arguments];  
+  }
+  
+  return _storageCache;
+}
+
+- (void)dealloc 
+{
+  [_storageCache release]; _storageCache = nil;
+  [super dealloc];
+}
+
+
+#pragma mark -
+#pragma mark Private Methods
+
+- (void)notifyObjectThatItIsReady:(id)object {
+  if([object respondsToSelector:@selector(awakeFromObjection)]) {
+    [object performSelector:@selector(awakeFromObjection)];
+  }
+}
+
+- (id)buildObject:(NSArray *)arguments {
+    
+    id objectUnderConstruction = nil;    
+    if ([self.classEntry respondsToSelector:@selector(objectionInitializer)]) {
+        objectUnderConstruction = JSObjectionUtils.buildObjectWithInitializer(self.classEntry, [self initializerForObject], [self argumentsForObject:arguments]);
+    } else {
+        objectUnderConstruction = [[[self.classEntry alloc] init] autorelease];
+    }
+
+    if (self.lifeCycle == JSObjectionInstantiationRuleSingleton) {
+        _storageCache = [objectUnderConstruction retain];
+    }
+    
+    JSObjectionUtils.injectDependenciesIntoProperties(self.injector, self.classEntry, objectUnderConstruction);
+
+    [self notifyObjectThatItIsReady: objectUnderConstruction];
+    return objectUnderConstruction;
+}
+
+- (SEL)initializerForObject {
+    return NSSelectorFromString([[self.classEntry performSelector:@selector(objectionInitializer)] objectForKey:JSObjectionInitializerKey]);
+}
+
+- (NSArray *)argumentsForObject:(NSArray *)givenArguments {
+    return givenArguments.count > 0 ? givenArguments : [[self.classEntry performSelector:@selector(objectionInitializer)] objectForKey:JSObjectionDefaultArgumentsKey];
+}
+
+#pragma mark Class Methods
+#pragma mark -
+
++ (id)entryWithClass:(Class)theClass lifeCycle:(JSObjectionInstantiationRule)theLifeCycle  {
+    return [[[JSObjectionInjectorEntry alloc] initWithClass:theClass lifeCycle:theLifeCycle] autorelease];
+}
+
++ (id)entryWithEntry:(JSObjectionInjectorEntry *)entry {
+    return [[[JSObjectionInjectorEntry alloc] initWithClass:entry.classEntry lifeCycle:entry.lifeCycle] autorelease];  
+}
+@end

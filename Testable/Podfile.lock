@@ -1,14 +1,25 @@
 
 PODS:
+- JRSwizzle (1.0)
 - KIF (0.0.1)
 - Kiwi (2.0.2.dev):
   - OCHamcrest
+- MKNetworkKit (0.87):
+  - Reachability (~> 3.0)
 - OCHamcrest (1.9)
+- Objection (0.14.1)
+- Reachability (3.1.0)
 - Sealant (0.0.1):
   - Sealant/Sealant (= 0.0.1)
 - Sealant/Kiwi (0.0.1):
   - Kiwi
+- Sealant/MKNetworkKit (0.0.1):
+  - JRSwizzle
+  - MKNetworkKit
+- Sealant/Objection (0.0.1):
+  - Objection
 - Sealant/Sealant (0.0.1)
+- Sealant/TestFlight (0.0.1)
 - TestFlightSDK (1.2)
 
 DEPENDENCIES:
@@ -16,6 +27,9 @@ DEPENDENCIES:
 - Kiwi (from `https://gist.github.com/raw/4541144/latest_kiwi_with_hamcrest.podspec')
 - Sealant (from `ssh://git@github.com/blazingcloud/sealant.git')
 - Sealant/Kiwi
+- Sealant/MKNetworkKit
+- Sealant/Objection
+- Sealant/TestFlight
 - TestFlightSDK
 
 EXTERNAL SOURCES:
@@ -26,11 +40,18 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   TestFlightSDK: 29e194fb148e4861f92e4c1195b9697e1f3ad19a
+  JRSwizzle: 6242ff38485d870fc2636899048ee1ab883ae587
   Kiwi: 1eefa5fb0ea66ee196fdb0e885caee52db3ce8ae
+  MKNetworkKit: 3d3c415ced5fa3f896fd0319820b7832103c2f81
   OCHamcrest: f8393efd5a49d91879be573635d6183effacc0ab
-  Sealant: 43ad0926c79c0cdd7c08f7fd67cb321591df9531
-  Sealant/Kiwi: 43ad0926c79c0cdd7c08f7fd67cb321591df9531
-  Sealant/Sealant: 43ad0926c79c0cdd7c08f7fd67cb321591df9531
+  Objection: 473b9bb045479f887592b16e7b8ae60c7dc4bbab
+  Reachability: 1c8584c5f26fa776695efef95caaa50402c94cfb
+  Sealant: 89e323f558ed3bc6c8b316ee2056a42fb86f4e93
+  Sealant/Kiwi: 89e323f558ed3bc6c8b316ee2056a42fb86f4e93
+  Sealant/MKNetworkKit: 89e323f558ed3bc6c8b316ee2056a42fb86f4e93
+  Sealant/Objection: 89e323f558ed3bc6c8b316ee2056a42fb86f4e93
+  Sealant/Sealant: 89e323f558ed3bc6c8b316ee2056a42fb86f4e93
+  Sealant/TestFlight: 89e323f558ed3bc6c8b316ee2056a42fb86f4e93
   KIF: 7b3e1a55d4024d023d5a4ac661b0498be8d549d9
 
 COCOAPODS: 0.16.1
