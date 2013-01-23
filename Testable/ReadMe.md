@@ -77,6 +77,7 @@ This will create XCode `<ProjectName>` workspace. Open workspace in XCode and us
 In Xcode 
 *   rename `<ProjectName>Tests` target to "App Specs"
 *   rename `<ProjectName>Tests.m` file to SanityTests.m, fix failing test as in [SanityTests.m](/blazingcloud/sealant/blob/master/Testable/App Specs/SanityTests.m)
+*   copy contents of `<ProjectName>Tests.h` file to SanityTests.m and delete `<ProjectName>Tests.h`
 *   rename `<ProjectName>Test-Info.plist` to "App Specs-Info.plist" and change references to it in App Specs Target Build Settings
 *   delete `<ProjectName>Tests/Localized.strings`
 
