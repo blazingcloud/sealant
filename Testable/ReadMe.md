@@ -77,12 +77,15 @@ This will create XCode `<ProjectName>` workspace. Open workspace in XCode and us
 In Xcode 
 *   rename `<ProjectName>Tests` target to "App Specs"
 *   rename `<ProjectName>Tests.m` file to SanityTests.m, fix failing test as in [SanityTests.m](/blazingcloud/sealant/blob/master/Testable/App Specs/SanityTests.m)
-*   rename `<ProjectName>Test-Info.plist` to "App Specs-Info.plist"
+*   rename `<ProjectName>Test-Info.plist` to "App Specs-Info.plist" and change references to it in App Specs Target Build Settings
 *   delete `<ProjectName>Tests/Localized.strings`
 
 rename to `<ProjectName>Tests` file folder to "App Specs":
 
     mv <ProjectName>Tests "App Specs"
+    
+*   run App Specs in Simulator by pressing **⌘U** while main target <ProjectName> is selected
+
 
 Update Podfile with Kiwi, Hamcrest and Sealant pods exclusively for spec target:
 
