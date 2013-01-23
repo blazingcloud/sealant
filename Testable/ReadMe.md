@@ -24,6 +24,7 @@ Check [rvm](https://rvm.io) installation
 
 Check ruby-1.9 alias pointing to one of available Ruby installations
 
+    rvm alias list
     rvm alias create ruby-1.9 ruby-1.9.3-p<ANY_PATCH_LEVEL_AVAILABLE>
     
 Install [WaxSim](https://github.com/blazingpair/WaxSim) to launch iOS Simulator from command line
