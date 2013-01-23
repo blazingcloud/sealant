@@ -131,7 +131,8 @@ Update pods:
 In Xcode
 *   remove FRAMEWORK_SEARCH_PATHS from Unit Specs target build settings, as it is defined by Pods
 *   remove SenTestingKit.framework as it is included by Pods
-*   Create [SanitySpec.m](/blazingcloud/sealant/blob/master/Testable/Unit Specs/SanitySpec.m) with simple assertion
+*   remove Unit_Specs.h and Unit_Specs.m
+*   Create [SanitySpec.m](/blazingcloud/sealant/blob/master/Testable/Unit Specs/SanitySpec.m) with simple assertion and add it to Unit Specs target
 *   run Unit Specs in Simulator by pressing **⌘U**, you might need to create XCode scheme with the same name for Unit Specs target
 *   add [SanitySpec.m](/blazingcloud/sealant/blob/master/Testable/Unit Specs/SanitySpec.m) to both targets: Unit Spec and App Spec
 *   add [SanityTests.m](/blazingcloud/sealant/blob/master/Testable/App Specs/SanityTests.m) to both targets: Unit Spec and App Spec
