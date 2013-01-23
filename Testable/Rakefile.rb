@@ -1,15 +1,21 @@
 require 'rubygems'
 require 'xcodebuild'
 require 'rake/clean'
-CLOBBER.include('/tmp/Testable.dst/')
+
+projectName = "Testable"
+workspaceName = "Testable"
+workspaceFile = "#{workspaceName}.xcworkspace"
+installationFolder = "/tmp/#{projectName}.dst"
+
+CLOBBER.include(installationFolder)
 
 namespace "xc" do
-    XcodeBuild::Tasks::BuildTask.new(namespace = :Testable) do |t|
-        t.scheme = "Testable"
+    XcodeBuild::Tasks::BuildTask.new(namespace = projectName) do |t|
+        t.scheme = projectName
         t.configuration = "Release"
         t.sdk = "iphoneos"
         t.formatter = XcodeBuild::Formatters::ProgressFormatter.new
-        t.workspace = "Testable.xcworkspace"
+        t.workspace = workspaceFile
     end
     
     XcodeBuild::Tasks::BuildTask.new(namespace = :all) do |t|
@@ -17,7 +23,7 @@ namespace "xc" do
         t.configuration = "Debug"
         t.sdk = "iphonesimulator"
         t.formatter = XcodeBuild::Formatters::ProgressFormatter.new
-        t.workspace = "Testable.xcworkspace"
+        t.workspace = workspaceFile
     end
     
     XcodeBuild::Tasks::BuildTask.new(namespace = :integration) do |t|
@@ -25,7 +31,7 @@ namespace "xc" do
         t.configuration = "Debug"
         t.sdk = "iphonesimulator"
         t.formatter = XcodeBuild::Formatters::ProgressFormatter.new
-        t.workspace = "Testable.xcworkspace"
+        t.workspace = workspaceFile
     end
     
     XcodeBuild::Tasks::BuildTask.new(namespace = :test) do |t|
@@ -34,7 +40,7 @@ namespace "xc" do
         t.configuration = "Debug"
         t.sdk = "iphonesimulator"
         t.formatter = XcodeBuild::Formatters::ProgressFormatter.new
-        t.workspace = "Testable.xcworkspace"
+        t.workspace = workspaceFile
     end
 end
 
@@ -49,13 +55,13 @@ end
 desc "Run unit specs"
 task :default => ["developer", "xc:test:build"]
 
-task :clean => ["xc:all:clean", "xc:Testable:clean"]
+task :clean => ["xc:all:clean", "xc:#{projectName}:clean"]
 
 task :int => "integration"
 
 namespace "integration" do
     
-    appDist = '/tmp/Testable.dst/Applications/Tests.app'
+    kifBundlePath = "#{installationFolder}/Applications/Tests.app"
     
     task :resetSimulator do
         system "osascript 'Pods/Sealant/Scripts/reset-simulator.applescript'"
@@ -65,7 +71,7 @@ namespace "integration" do
     
     task :runOnSimulator do |t, args|
         system "waxsim -a"
-        system "waxsim -e RUN_KIF_TESTS_OFFLINE=#{runOffline} '#{appDist}'"
+        system "waxsim -e RUN_KIF_TESTS_OFFLINE=#{runOffline} '#{kifBundlePath}'"
     end
     
     task :run => ["resetSimulator", "runOnSimulator"]
