@@ -1,6 +1,6 @@
 source :rubygems
-gem "cocoapods"
+gem "cocoapods" # http://cocoapods.org to manage library dependencies
 git "git://github.com/lukeredpath/xcodebuild-rb.git" do
-    gem "xcodebuild-rb"
+    gem "xcodebuild-rb" # to build from the command line with Rake
 end
-gem "pivotal_git_scripts"
+gem "pivotal_git_scripts" # https://github.com/pivotal/git_scripts, use git-pair to configure git authors for pair programming
