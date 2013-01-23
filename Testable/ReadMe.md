@@ -84,8 +84,7 @@ rename to `<ProjectName>Tests` file folder to "App Specs":
 
     mv <ProjectName>Tests "App Specs"
     
-*   run App Specs in Simulator by pressing **⌘U** while main target <ProjectName> is selected
-
+*   run App Specs in Simulator by pressing **⌘U** while main target `<ProjectName>` is selected,  SanityTests should pass.
 
 Update Podfile with Kiwi, Hamcrest and Sealant pods exclusively for spec target:
 
