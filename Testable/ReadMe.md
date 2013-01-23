@@ -136,10 +136,10 @@ In Xcode
 *   run Unit Specs in Simulator by pressing **⌘U**, you might need to create XCode scheme with the same name for Unit Specs target
 *   run Unit Specs and App Specs in Simulator, the SanitySpec should pass
 *   in Xcode Manage Schemes menu
-**   create Xcode scheme for App Specs target with default name `App Specs`
-**   mark main target and test targets as Shared
-**   hide Pods schemes
-**   edit main target scheme, select Test step and add Unit Specs to existing App Specs, so when you run tests on main target it launches both Unit Specs and App Specs
+ *   create Xcode scheme for App Specs target with default name `App Specs`
+ *   mark main target and test targets as Shared
+ *   hide Pods schemes
+ *   edit main target scheme, select Test step and add Unit Specs to existing App Specs, so when you run tests on main target it launches both Unit Specs and App Specs
 
 ### Create [Integration Tests](/blazingcloud/sealant/blob/master/Testable/Integration Tests) target with [KIF](https://github.com/square/KIF)
 
