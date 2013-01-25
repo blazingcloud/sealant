@@ -14,5 +14,6 @@ extern const NSUInteger kNetworkTimeout;
 + (void)ensureDirectoryExists:(NSSearchPathDirectory)directory;
 + (NSURL *)urlForTestFile:(NSString *)aFileName;
 + (NSData *)testDataFromFile:(NSString *)aFileName;
++ (BOOL)executingUnitTestsNotApplicationTests;
 @end
 

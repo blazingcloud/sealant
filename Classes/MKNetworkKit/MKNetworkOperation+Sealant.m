@@ -7,6 +7,7 @@
 
 #import <MKNetworkKit.h>
 #import <JRSwizzle.h>
+#import "BZSpecHelper.h"
 
 @implementation MKNetworkOperation (Sealant)
 - (void) doNotStart {
@@ -14,10 +15,12 @@
 }
 
 + (void)initialize {
-    NSError *error = nil;
-    [MKNetworkOperation jr_swizzleMethod:@selector(start)
-                              withMethod:@selector(doNotStart)
-                                   error:&error];
-    NSAssert1(!error, @"Failed to disable network operation start method for unit specs, due to: %@", error);
+    if ([BZSpecHelper executingUnitTestsNotApplicationTests]) {
+        NSError *error = nil;
+        BOOL swizzled = [MKNetworkOperation jr_swizzleMethod:@selector(start)
+                                                  withMethod:@selector(doNotStart)
+                                                       error:&error];
+        NSAssert1(!error && swizzled, @"Failed to disable network operation start method for unit specs, due to: %@", error);
+    }
 }
 @end

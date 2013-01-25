@@ -22,6 +22,14 @@ const NSUInteger kNetworkTimeout = 30;
     NSParameterAssert(!error);
 }
 
++ (BOOL)hasMainBundle {
+    return [[[NSBundle mainBundle] bundlePath] hasSuffix:@".app"];
+}
+
++ (BOOL)executingUnitTestsNotApplicationTests {
+    return ![self hasMainBundle];
+}
+
 + (BOOL)isHeadlessUser {
     NSDictionary *environment = [[NSProcessInfo processInfo] environment];
     return !![environment objectForKey:@"LOGNAME"];
