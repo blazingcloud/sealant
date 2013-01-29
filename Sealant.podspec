@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name            = 'Sealant'
-  s.version         = '0.0.1'
+  s.version         = '1.0'
   s.summary         = 'iOS Testing Glue - fixtures, matchers and helpers.'
   s.homepage        = 'https://github.com/blazingcloud/sealant'
   s.authors         = { 'Blazing Pair' => 'blazingpair@blazingcloud.net', 'Paul Zabelin' => 'paul@blazingcloud.net' }
