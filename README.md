@@ -2,7 +2,8 @@ Sealant is iOS Testing Glue
 =======
 
 Fixtures, Matchers and Helpers packaged into one [Cocoa Pod](http://cocoapods.org).
-
+Testing iOS apps and Cocoa code is still hard, some little magic helps.
+Sealant connects testing libraries with libraries used by code under test.
 
 Installation
 -------
