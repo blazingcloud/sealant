@@ -5,7 +5,7 @@
 //  Copyright (c) 2012 Blazing Cloud, Inc. All rights reserved.
 //
 
-@interface BZMockInjector
+@interface BZMockInjector : NSObject
 + (id)mockBoundToClass:(Class)aClass;
 @end
 
