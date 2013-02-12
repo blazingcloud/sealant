@@ -21,5 +21,15 @@
     return mock;
 }
 
++ (id)mockBoundToProtocol:(Protocol*)aProtocol {
+    JSObjectionModule *module = [[JSObjectionModule alloc] init];
+    id mock = [KWMock mockForProtocol:aProtocol];
+    [module bind:mock toProtocol:aProtocol];
+    JSObjectionInjector *injector = [JSObjection createInjector:module];
+    [JSObjection setDefaultInjector:injector];
+    NSParameterAssert(mock == [injector getObject:aProtocol]);
+    return mock;
+}
+
 @end
 

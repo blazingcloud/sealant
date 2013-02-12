@@ -7,5 +7,6 @@
 
 @interface BZMockInjector : NSObject
 + (id)mockBoundToClass:(Class)aClass;
++ (id)mockBoundToProtocol:(Protocol*)aProtocol;
 @end
 
