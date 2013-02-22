@@ -35,4 +35,4 @@ Please review [Best practices](https://github.com/blazingcloud/sealant/tree/mast
 Documentation
 ------
 
-Documentation is on [Wiki](/blazingcloud/sealant/wiki)
+Documentation is on [Wiki](https://github.com/blazingcloud/sealant/wiki)
