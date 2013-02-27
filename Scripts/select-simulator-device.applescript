@@ -1,3 +1,5 @@
+set simulatedDevice to (item 1 of argv)
+
 tell application "iPhone Simulator"
 	activate
 end tell
@@ -9,7 +11,7 @@ tell application "System Events"
 				tell menu "Hardware"
 					tell menu item "Device"
 						tell menu "Device"
-							click menu item "iPhone (Retina 4-inch)"
+							click menu item simulatedDevice
 						end tell
 					end tell
 				end tell
