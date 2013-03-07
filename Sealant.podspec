@@ -35,4 +35,10 @@ Pod::Spec.new do |s|
   s.subspec 'TestFlight' do |tf|
     tf.source_files    = 'Classes/TestFlight/*.{h,m}'
   end
+
+  s.subspec 'KIF' do |kif|
+    kif.source_files    = 'Classes/KIF/*.{h,m}'
+    kif.framework = 'PrivateFrameworks/VoiceServices.framework'
+  end
+
 end
