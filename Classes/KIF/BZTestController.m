@@ -32,7 +32,7 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *fileName = nil;
     for (NSString *file in [fileManager enumeratorAtPath:logsFolder]) {
-        DLogObject(file);
+        NSLog(@"found log file: %@", file);
         fileName = file;
     }
     NSParameterAssert(fileName);
