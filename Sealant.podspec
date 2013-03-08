@@ -38,7 +38,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'KIF' do |kif|
     kif.source_files    = 'Classes/KIF/*.{h,m}'
-    kif.framework = 'VoiceServices.framework'
+    kif.framework = 'VoiceServices'
     kif.xcconfig  = { 'FRAMEWORK_SEARCH_PATHS' => '"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks"' }
   end
 
