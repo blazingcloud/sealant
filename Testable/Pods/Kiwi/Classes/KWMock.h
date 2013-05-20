@@ -13,19 +13,9 @@
 @protocol KWMessageSpying;
 @protocol KWVerifying;
 
-@interface KWMock : NSObject {
-@private
-    BOOL isNullMock;
-    NSString *name;
-    Class mockedClass;
-    Protocol *mockedProtocol;
-    NSMutableArray *stubs;
-    NSMutableArray *expectedMessagePatterns;
-    NSMutableDictionary *messageSpies;
-}
+@interface KWMock : NSObject
 
-#pragma mark -
-#pragma mark Initializing
+#pragma mark - Initializing
 
 - (id)initForClass:(Class)aClass;
 - (id)initForProtocol:(Protocol *)aProtocol;
@@ -37,6 +27,9 @@
 - (id)initAsNullMockWithName:(NSString *)aName forClass:(Class)aClass;
 - (id)initAsNullMockWithName:(NSString *)aName forProtocol:(Protocol *)aProtocol;
 
+- (id)initAsPartialMockForObject:(id)object;
+- (id)initAsPartialMockWithName:(NSString *)aName forObject:(id)object;
+
 + (id)mockForClass:(Class)aClass;
 + (id)mockForProtocol:(Protocol *)aProtocol;
 + (id)mockWithName:(NSString *)aName forClass:(Class)aClass;
@@ -47,16 +40,19 @@
 + (id)nullMockWithName:(NSString *)aName forClass:(Class)aClass ;
 + (id)nullMockWithName:(NSString *)aName forProtocol:(Protocol *)aProtocol;
 
-#pragma mark -
-#pragma mark Properties
++ (id)partialMockForObject:(id)object;
++ (id)partialMockWithName:(NSString *)aName forObject:(id)object;
+
+#pragma mark - Properties
 
 @property (nonatomic, readonly) BOOL isNullMock;
-@property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) BOOL isPartialMock;
+@property (nonatomic, readonly) NSString *mockName;
 @property (nonatomic, readonly) Class mockedClass;
+@property (nonatomic, readonly) id mockedObject;
 @property (nonatomic, readonly) Protocol *mockedProtocol;
 
-#pragma mark -
-#pragma mark Stubbing Methods
+#pragma mark - Stubbing Methods
 
 - (void)stub:(SEL)aSelector;
 - (void)stub:(SEL)aSelector withBlock:(id (^)(NSArray *params))block;
@@ -73,16 +69,13 @@
 
 - (void)clearStubs;
 
-#pragma mark -
-#pragma mark Spying on Messages
+#pragma mark - Spying on Messages
 
 - (void)addMessageSpy:(id<KWMessageSpying>)aSpy forMessagePattern:(KWMessagePattern *)aMessagePattern;
 - (void)removeMessageSpy:(id<KWMessageSpying>)aSpy forMessagePattern:(KWMessagePattern *)aMessagePattern;
-- (KWCaptureSpy *)captureArgument:(SEL)selector atIndex:(NSUInteger)index;
 
 
-#pragma mark -
-#pragma mark Expecting Messages
+#pragma mark - Expecting Messages
 
 - (void)expect:(SEL)aSelector;
 - (void)expect:(SEL)aSelector withArguments:(id)firstArgument, ...;

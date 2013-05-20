@@ -10,25 +10,22 @@
 
 @implementation KWBeZeroMatcher
 
-#pragma mark -
-#pragma mark Getting Matcher Strings
+#pragma mark - Getting Matcher Strings
 
 + (NSArray *)matcherStrings {
-    return [NSArray arrayWithObject:@"beZero"];
+    return @[@"beZero"];
 }
 
-#pragma mark -
-#pragma mark Matching
+#pragma mark - Matching
 
 - (BOOL)evaluate {
     if (![self.subject respondsToSelector:@selector(boolValue)])
         [NSException raise:@"KWMatcherException" format:@"subject does not respond to -numberValue"];
 
-    return [[self.subject numberValue] isEqualToNumber:[NSNumber numberWithInt:0]];
+    return [[self.subject numberValue] isEqualToNumber:@0];
 }
 
-#pragma mark -
-#pragma mark Getting Failure Messages
+#pragma mark - Getting Failure Messages
 
 - (NSString *)failureMessageForShould {
     return [NSString stringWithFormat:@"expected subject to be zero, got %@",
@@ -39,8 +36,7 @@
     return [NSString stringWithFormat:@"expected subject not to be zero"];
 }
 
-#pragma mark -
-#pragma mark Configuring Matchers
+#pragma mark - Configuring Matchers
 
 - (void)beZero {
 }

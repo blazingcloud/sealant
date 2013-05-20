@@ -19,11 +19,9 @@
 @class KWSpec;
 @class KWMatcherFactory;
 
-@interface KWExample : NSObject <KWExampleNodeVisitor, KWReporting> {
-  id<KWExampleNode> exampleNode;
-  BOOL passed;
-}
-@property (nonatomic, retain) KWContextNode *lastInContext;
+@interface KWExample : NSObject <KWExampleNodeVisitor, KWReporting>
+
+@property (nonatomic, retain, readonly) NSMutableArray *lastInContexts;
 @property (nonatomic, assign) KWExampleSuite *suite;
 
 - (id)initWithExampleNode:(id<KWExampleNode>)node;
@@ -35,29 +33,29 @@
 - (id)addMatchVerifierWithExpectationType:(KWExpectationType)anExpectationType callSite:(KWCallSite *)aCallSite;
 - (id)addAsyncVerifierWithExpectationType:(KWExpectationType)anExpectationType callSite:(KWCallSite *)aCallSite timeout:(NSInteger)timeout;
 
+#pragma mark - Report failure
+
+- (void)reportFailure:(KWFailure *)failure;
+
 #pragma mark - Running
 
 - (void)runWithDelegate:(id<KWExampleDelegate>)delegate;
 
-#pragma mark -
-#pragma mark Anonymous It Node Descriptions
+#pragma mark - Anonymous It Node Descriptions
 
 - (NSString *)generateDescriptionForAnonymousItNode;
 
-#pragma mark -
-#pragma mark Checking if last in context
+#pragma mark - Checking if last in context
 
 - (BOOL)isLastInContext:(KWContextNode *)context;
 
-#pragma mark -
-#pragma mark Full description with context
+#pragma mark - Full description with context
 
 - (NSString *)descriptionWithContext;
 
 @end
 
-#pragma mark -
-#pragma mark Building Example Groups
+#pragma mark - Building Example Groups
 
 void describe(NSString *aDescription, KWVoidBlock aBlock);
 void context(NSString *aDescription, KWVoidBlock aBlock);

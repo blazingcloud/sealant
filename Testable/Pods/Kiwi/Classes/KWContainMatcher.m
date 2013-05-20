@@ -6,12 +6,11 @@
 
 #import "KWContainMatcher.h"
 #import "KWFormatter.h"
-#import "KWHamrestMatchingAdditions.h"
+#import "KWGenericMatchingAdditions.h"
 
 @interface KWContainMatcher()
 
-#pragma mark -
-#pragma mark Properties
+#pragma mark - Properties
 
 @property (nonatomic, readwrite, retain) id objects;
 
@@ -19,28 +18,24 @@
 
 @implementation KWContainMatcher
 
-#pragma mark -
-#pragma mark Initializing
+#pragma mark - Initializing
 
 - (void)dealloc {
     [objects release];
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Properties
+#pragma mark - Properties
 
 @synthesize objects;
 
-#pragma mark -
-#pragma mark Getting Matcher Strings
+#pragma mark - Getting Matcher Strings
 
 + (NSArray *)matcherStrings {
-    return [NSArray arrayWithObjects:@"contain:", @"containObjectsInArray:", nil];
+    return @[@"contain:", @"containObjectsInArray:"];
 }
 
-#pragma mark -
-#pragma mark Matching
+#pragma mark - Matching
 
 - (BOOL)evaluate {
     if (![self.subject respondsToSelector:@selector(containsObjectEqualToOrMatching:)])
@@ -54,12 +49,11 @@
     return YES;
 }
 
-#pragma mark -
-#pragma mark Getting Failure Messages
+#pragma mark - Getting Failure Messages
 
 - (NSString *)objectsPhrase {
     if ([self.objects count] == 1)
-        return [KWFormatter formatObject:[self.objects objectAtIndex:0]];
+        return [KWFormatter formatObject:(self.objects)[0]];
 
     return [NSString stringWithFormat:@"all of %@", [KWFormatter formatObject:self.objects]];
 }
@@ -73,11 +67,10 @@
   return [NSString stringWithFormat:@"contain %@", [self objectsPhrase]];
 }
 
-#pragma mark -
-#pragma mark Configuring Matchers
+#pragma mark - Configuring Matchers
 
 - (void)contain:(id)anObject {
-    self.objects = [NSArray arrayWithObject:anObject];
+    self.objects = @[anObject];
 }
 
 - (void)containObjectsInArray:(NSArray *)anArray {
@@ -88,8 +81,7 @@
 
 @implementation KWMatchVerifier(KWContainMatcherAdditions)
 
-#pragma mark -
-#pragma mark Verifying
+#pragma mark - Verifying
 
 - (void)containObjects:(id)firstObject, ... {
     NSMutableArray *objects = [NSMutableArray array];

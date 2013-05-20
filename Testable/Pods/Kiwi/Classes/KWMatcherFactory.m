@@ -11,14 +11,15 @@
 #import "KWUserDefinedMatcher.h"
 #import "KWMatchers.h"
 
-@interface KWMatcherFactory()
+@interface KWMatcherFactory() {
+    NSMutableDictionary *matcherClassChains;
+}
 - (Class)matcherClassForSelector:(SEL)aSelector subject:(id)anObject;
 @end
 
 @implementation KWMatcherFactory
 
-#pragma mark -
-#pragma mark Initializing
+#pragma mark - Initializing
 
 - (id)init {
     if ((self = [super init])) {
@@ -35,26 +36,24 @@
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Properties
+#pragma mark - Properties
 
 @synthesize registeredMatcherClasses;
 
-#pragma mark -
-#pragma mark Registering Matcher Classes
+#pragma mark - Registering Matcher Classes
 
 - (void)registerMatcherClass:(Class)aClass {
     if ([self.registeredMatcherClasses containsObject:aClass])
         return;
 
-    [registeredMatcherClasses addObject:aClass];
+    [(NSMutableArray *)registeredMatcherClasses addObject:aClass];
 
     for (NSString *verificationSelectorString in [aClass matcherStrings]) {
-        NSMutableArray *matcherClassChain = [matcherClassChains objectForKey:verificationSelectorString];
+        NSMutableArray *matcherClassChain = matcherClassChains[verificationSelectorString];
 
         if (matcherClassChain == nil) {
             matcherClassChain = [[NSMutableArray alloc] init];
-            [matcherClassChains setObject:matcherClassChain forKey:verificationSelectorString];
+            matcherClassChains[verificationSelectorString] = matcherClassChain;
             [matcherClassChain release];
         }
 
@@ -101,29 +100,26 @@
     }
 }
 
-#pragma mark -
-#pragma mark Registering User Defined Matchers
+#pragma mark - Registering User Defined Matchers
 
 //- (void)registerUserDefinedMatcherWithBuilder:(KWUserDefinedMatcherBuilder *)aBuilder
 //{
 //
 //}
 
-#pragma mark -
-#pragma mark Getting Method Signatures
+#pragma mark - Getting Method Signatures
 
 - (NSMethodSignature *)methodSignatureForMatcherSelector:(SEL)aSelector {
-    NSMutableArray *matcherClassChain = [matcherClassChains objectForKey:NSStringFromSelector(aSelector)];
+    NSMutableArray *matcherClassChain = matcherClassChains[NSStringFromSelector(aSelector)];
 
     if ([matcherClassChain count] == 0)
         return nil;
 
-    Class matcherClass = [matcherClassChain objectAtIndex:0];
+    Class matcherClass = matcherClassChain[0];
     return [matcherClass instanceMethodSignatureForSelector:aSelector];
 }
 
-#pragma mark -
-#pragma mark Getting Matchers
+#pragma mark - Getting Matchers
 
 - (KWMatcher *)matcherFromInvocation:(NSInvocation *)anInvocation subject:(id)subject {
     SEL selector = [anInvocation selector];
@@ -138,11 +134,10 @@
     return [[[matcherClass alloc] initWithSubject:subject] autorelease];
 }
 
-#pragma mark -
-#pragma mark Private methods
+#pragma mark - Private methods
 
 - (Class)matcherClassForSelector:(SEL)aSelector subject:(id)anObject {
-    NSArray *matcherClassChain = [matcherClassChains objectForKey:NSStringFromSelector(aSelector)];
+    NSArray *matcherClassChain = matcherClassChains[NSStringFromSelector(aSelector)];
 
     for (Class matcherClass in matcherClassChain) {
         if ([matcherClass canMatchSubject:anObject])

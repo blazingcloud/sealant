@@ -2,4 +2,15 @@
 #import <UIKit/UIKit.h>
 #endif
 
-#undef HC_SHORTHAND
+#import "Pods-spec-environment.h"
+
+
+
+
+
+
+
+
+
+
+

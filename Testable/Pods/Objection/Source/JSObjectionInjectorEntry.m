@@ -17,7 +17,7 @@
 #pragma mark Instance Methods
 #pragma mark -
 
-- (id)initWithClass:(Class)theClass lifeCycle:(JSObjectionInstantiationRule)theLifeCycle 
+- (id)initWithClass:(Class)theClass lifeCycle:(JSObjectionScope)theLifeCycle 
 {
   if ((self = [super init])) {
     _lifeCycle = theLifeCycle;
@@ -29,7 +29,7 @@
 }
 
 - (id)extractObject:(NSArray *)arguments {
-  if (self.lifeCycle == JSObjectionInstantiationRuleNormal || !_storageCache) {
+  if (self.lifeCycle == JSObjectionScopeNormal || !_storageCache) {
       return [self buildObject:arguments];  
   }
   
@@ -38,8 +38,7 @@
 
 - (void)dealloc 
 {
-  [_storageCache release]; _storageCache = nil;
-  [super dealloc];
+   _storageCache = nil;
 }
 
 
@@ -58,11 +57,11 @@
     if ([self.classEntry respondsToSelector:@selector(objectionInitializer)]) {
         objectUnderConstruction = JSObjectionUtils.buildObjectWithInitializer(self.classEntry, [self initializerForObject], [self argumentsForObject:arguments]);
     } else {
-        objectUnderConstruction = [[[self.classEntry alloc] init] autorelease];
+        objectUnderConstruction = [[self.classEntry alloc] init];
     }
 
-    if (self.lifeCycle == JSObjectionInstantiationRuleSingleton) {
-        _storageCache = [objectUnderConstruction retain];
+    if (self.lifeCycle == JSObjectionScopeSingleton) {
+        _storageCache = objectUnderConstruction;
     }
     
     JSObjectionUtils.injectDependenciesIntoProperties(self.injector, self.classEntry, objectUnderConstruction);
@@ -82,11 +81,11 @@
 #pragma mark Class Methods
 #pragma mark -
 
-+ (id)entryWithClass:(Class)theClass lifeCycle:(JSObjectionInstantiationRule)theLifeCycle  {
-    return [[[JSObjectionInjectorEntry alloc] initWithClass:theClass lifeCycle:theLifeCycle] autorelease];
++ (id)entryWithClass:(Class)theClass scope:(JSObjectionScope)theLifeCycle  {
+    return [[JSObjectionInjectorEntry alloc] initWithClass:theClass lifeCycle:theLifeCycle];
 }
 
 + (id)entryWithEntry:(JSObjectionInjectorEntry *)entry {
-    return [[[JSObjectionInjectorEntry alloc] initWithClass:entry.classEntry lifeCycle:entry.lifeCycle] autorelease];  
+    return [[JSObjectionInjectorEntry alloc] initWithClass:entry.classEntry lifeCycle:entry.lifeCycle];  
 }
 @end

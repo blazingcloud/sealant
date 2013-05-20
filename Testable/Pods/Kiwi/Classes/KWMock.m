@@ -24,21 +24,18 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
 
 @interface KWMock()
 
-#pragma mark -
-#pragma mark Initializing
+#pragma mark - Initializing
 
 - (id)initAsNullMock:(BOOL)nullMockFlag withName:(NSString *)aName forClass:(Class)aClass protocol:(Protocol *)aProtocol;
 
-#pragma mark -
-#pragma mark Properties
+#pragma mark - Properties
 
 @property (nonatomic, readonly) NSMutableArray *stubs;
 @property (nonatomic, readonly) NSMutableArray *expectedMessagePatterns;
 @property (nonatomic, readonly) NSMutableDictionary *messageSpies;
 
 
-#pragma mark -
-#pragma mark Handling Invocations
+#pragma mark - Handling Invocations
 
 - (BOOL)processReceivedInvocation:(NSInvocation *)invocation;
 
@@ -46,8 +43,7 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
 
 @implementation KWMock
 
-#pragma mark -
-#pragma mark Initializing
+#pragma mark - Initializing
 
 - (id)init {
     // May already have been initialized since stubbing -init is allowed!
@@ -103,7 +99,7 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
 - (id)initAsNullMock:(BOOL)nullMockFlag withName:(NSString *)aName forClass:(Class)aClass protocol:(Protocol *)aProtocol {
     if ((self = [super init])) {
         isNullMock = nullMockFlag;
-        name = [aName copy];
+        mockName = [aName copy];
         mockedClass = aClass;
         mockedProtocol = aProtocol;
         stubs = [[NSMutableArray alloc] init];
@@ -111,6 +107,18 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
         messageSpies = [[NSMutableDictionary alloc] init];
     }
 
+    return self;
+}
+
+- (id)initAsPartialMockForObject:(id)object {
+    return [self initAsPartialMockWithName:nil forObject:object];
+}
+
+- (id)initAsPartialMockWithName:(NSString *)aName forObject:(id)object {
+    if ((self = [self initAsNullMock:YES withName:aName forClass:[object class] protocol:nil])) {
+        isPartialMock = YES;
+        mockedObject = [object retain];
+    }
     return self;
 }
 
@@ -146,27 +154,36 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
     return [[[self alloc] initAsNullMockWithName:aName forProtocol:aProtocol] autorelease];
 }
 
++ (id)partialMockWithName:(NSString *)aName forObject:(id)object {
+    return [[[self alloc] initAsPartialMockWithName:aName forObject:object] autorelease];
+}
+
++ (id)partialMockForObject:(id)object {
+    return [[[self alloc] initAsPartialMockForObject:object] autorelease];
+}
+
 - (void)dealloc {
-    [name release];
+    [mockedObject release];
+    [mockName release];
     [stubs release];
     [expectedMessagePatterns release];
     [messageSpies release];
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Properties
+#pragma mark - Properties
 
+@synthesize isPartialMock;
 @synthesize isNullMock;
-@synthesize name;
+@synthesize mockName;
+@synthesize mockedObject;
 @synthesize mockedClass;
 @synthesize mockedProtocol;
 @synthesize stubs;
 @synthesize expectedMessagePatterns;
 @synthesize messageSpies;
 
-#pragma mark -
-#pragma mark Getting Transitive Closure For Mocked Protocols
+#pragma mark - Getting Transitive Closure For Mocked Protocols
 
 - (NSSet *)mockedProtocolTransitiveClosureSet {
     if (self.mockedProtocol == nil)
@@ -196,20 +213,26 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
     return protocolSet;
 }
 
-#pragma mark -
-#pragma mark Stubbing Methods
+#pragma mark - Stubbing Methods
 
 - (void)removeStubWithMessagePattern:(KWMessagePattern *)messagePattern {
+    KWStub *stub = [self currentStubWithMessagePattern:messagePattern];
+    if (stub) {
+        [self.stubs removeObject:stub];
+    }
+}
+
+- (KWStub *)currentStubWithMessagePattern:(KWMessagePattern *)messagePattern {
     NSUInteger stubCount = [self.stubs count];
-
+    
     for (NSUInteger i = 0; i < stubCount; ++i) {
-        KWStub *stub = [self.stubs objectAtIndex:i];
-
+        KWStub *stub = (self.stubs)[i];
+        
         if ([stub.messagePattern isEqualToMessagePattern:messagePattern]) {
-            [self.stubs removeObjectAtIndex:i];
-            return;
+            return stub;
         }
     }
+    return nil;
 }
 
 - (void)stub:(SEL)aSelector {
@@ -242,24 +265,35 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
 }
 
 - (id)stub {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:StubTag forKey:ExpectOrStubTagKey];
+    NSDictionary *userInfo = @{ExpectOrStubTagKey: StubTag};
     return [KWInvocationCapturer invocationCapturerWithDelegate:self userInfo:userInfo];
 }
 
 - (id)stubAndReturn:(id)aValue {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:StubTag, ExpectOrStubTagKey,
-                                                                        aValue, StubValueKey, nil];
+    NSDictionary *userInfo = @{ExpectOrStubTagKey: StubTag,
+                                                                        StubValueKey: aValue};
     return [KWInvocationCapturer invocationCapturerWithDelegate:self userInfo:userInfo];
 }
 
 - (id)stubAndReturn:(id)aValue times:(id)times afterThatReturn:(id)aSecondValue {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:StubTag, ExpectOrStubTagKey, aValue, StubValueKey, times, ChangeStubValueAfterTimesKey, aSecondValue, StubSecondValueKey, nil];
+    NSDictionary *userInfo = @{ExpectOrStubTagKey: StubTag, StubValueKey: aValue, ChangeStubValueAfterTimesKey: times, StubSecondValueKey: aSecondValue};
     return [KWInvocationCapturer invocationCapturerWithDelegate:self userInfo:userInfo];
 }
 
 - (void)stubMessagePattern:(KWMessagePattern *)aMessagePattern andReturn:(id)aValue {
+    [self stubMessagePattern:aMessagePattern andReturn:aValue overrideExisting:YES];
+}
+
+- (void)stubMessagePattern:(KWMessagePattern *)aMessagePattern andReturn:(id)aValue overrideExisting:(BOOL)overrideExisting {
     [self expectMessagePattern:aMessagePattern];
-    [self removeStubWithMessagePattern:aMessagePattern];
+    KWStub *existingStub = [self currentStubWithMessagePattern:aMessagePattern];
+    if (existingStub) {
+        if (overrideExisting) {
+            [self.stubs removeObject:existingStub];
+        } else {
+            return;
+        }
+    }
     KWStub *stub = [KWStub stubWithMessagePattern:aMessagePattern value:aValue];
     [self.stubs addObject:stub];
 }
@@ -282,22 +316,15 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
     [self.stubs removeAllObjects];
 }
 
-#pragma mark -
-#pragma mark Spying on Messages
-
-- (KWCaptureSpy *)captureArgument:(SEL)selector atIndex:(NSUInteger)index {
-    KWCaptureSpy *spy = [[[KWCaptureSpy alloc] initWithArgumentIndex:index] autorelease];
-    [self addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:selector]];
-    return  spy;
-}
+#pragma mark - Spying on Messages
 
 - (void)addMessageSpy:(id<KWMessageSpying>)aSpy forMessagePattern:(KWMessagePattern *)aMessagePattern {
     [self expectMessagePattern:aMessagePattern];
-    NSMutableArray *messagePatternSpies = [self.messageSpies objectForKey:aMessagePattern];
+    NSMutableArray *messagePatternSpies = (self.messageSpies)[aMessagePattern];
 
     if (messagePatternSpies == nil) {
         messagePatternSpies = [[NSMutableArray alloc] init];
-        [self.messageSpies setObject:messagePatternSpies forKey:aMessagePattern];
+        (self.messageSpies)[aMessagePattern] = messagePatternSpies;
         [messagePatternSpies release];
     }
     NSValue *spyWrapper = [NSValue valueWithNonretainedObject:aSpy];
@@ -308,12 +335,11 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
 
 - (void)removeMessageSpy:(id<KWMessageSpying>)aSpy forMessagePattern:(KWMessagePattern *)aMessagePattern {
     NSValue *spyWrapper = [NSValue valueWithNonretainedObject:aSpy];
-    NSMutableArray *messagePatternSpies = [self.messageSpies objectForKey:aMessagePattern];
+    NSMutableArray *messagePatternSpies = (self.messageSpies)[aMessagePattern];
     [messagePatternSpies removeObject:spyWrapper];
 }
 
-#pragma mark -
-#pragma mark Expecting Message Patterns
+#pragma mark - Expecting Message Patterns
 
 - (void)expect:(SEL)aSelector {
     KWMessagePattern *messagePattern = [KWMessagePattern messagePatternWithSelector:aSelector];
@@ -328,7 +354,7 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
 }
 
 - (id)expect {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:ExpectTag forKey:ExpectOrStubTagKey];
+    NSDictionary *userInfo = @{ExpectOrStubTagKey: ExpectTag};
     return [KWInvocationCapturer invocationCapturerWithDelegate:self userInfo:userInfo];
 }
 
@@ -337,8 +363,7 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
         [self.expectedMessagePatterns addObject:aMessagePattern];
 }
 
-#pragma mark -
-#pragma mark Capturing Invocations
+#pragma mark - Capturing Invocations
 
 - (NSMethodSignature *)invocationCapturer:(KWInvocationCapturer *)anInvocationCapturer methodSignatureForSelector:(SEL)aSelector {
     return [self methodSignatureForSelector:aSelector];
@@ -346,14 +371,14 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
 
 - (void)invocationCapturer:(KWInvocationCapturer *)anInvocationCapturer didCaptureInvocation:(NSInvocation *)anInvocation {
     KWMessagePattern *messagePattern = [KWMessagePattern messagePatternFromInvocation:anInvocation];
-    NSString *tag = [anInvocationCapturer.userInfo objectForKey:ExpectOrStubTagKey];
+    NSString *tag = (anInvocationCapturer.userInfo)[ExpectOrStubTagKey];
     if ([tag isEqualToString:StubTag]) {
-        id value = [anInvocationCapturer.userInfo objectForKey:StubValueKey];
-        if (![anInvocationCapturer.userInfo objectForKey:StubSecondValueKey]) {
+        id value = (anInvocationCapturer.userInfo)[StubValueKey];
+        if (!(anInvocationCapturer.userInfo)[StubSecondValueKey]) {
             [self stubMessagePattern:messagePattern andReturn:value];
         } else {
-            id times = [anInvocationCapturer.userInfo objectForKey:ChangeStubValueAfterTimesKey];
-            id secondValue = [anInvocationCapturer.userInfo objectForKey:StubSecondValueKey];
+            id times = (anInvocationCapturer.userInfo)[ChangeStubValueAfterTimesKey];
+            id secondValue = (anInvocationCapturer.userInfo)[StubSecondValueKey];
             [self stubMessagePattern:messagePattern andReturn:value times:times afterThatReturn:secondValue];
         }
     } else {
@@ -361,20 +386,19 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
     }
 }
 
-#pragma mark -
-#pragma mark Handling Invocations
+#pragma mark - Handling Invocations
 
 - (NSString *)namePhrase {
-    if (self.name == nil)
+    if (self.mockName == nil)
         return @"mock";
     else
-        return [NSString stringWithFormat:@"mock \"%@\"", self.name];
+        return [NSString stringWithFormat:@"mock \"%@\"", self.mockName];
 }
 
 - (BOOL)processReceivedInvocation:(NSInvocation *)invocation {
     for (KWMessagePattern *messagePattern in self.messageSpies) {
         if ([messagePattern matchesInvocation:invocation]) {
-            NSArray *spies = [self.messageSpies objectForKey:messagePattern];
+            NSArray *spies = (self.messageSpies)[messagePattern];
 
             for (NSValue *spyWrapper in spies) {
                 id spy = [spyWrapper nonretainedObjectValue];
@@ -430,6 +454,9 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
     if ([self processReceivedInvocation:anInvocation])
         return;
 
+    if (isPartialMock)
+        [anInvocation invokeWithTarget:self.mockedObject];
+
     if (self.isNullMock)
         return;
 
@@ -450,8 +477,7 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
 #endif // #if KW_TARGET_HAS_INVOCATION_EXCEPTION_BUG
 }
 
-#pragma mark -
-#pragma mark Testing Objects
+#pragma mark - Testing Objects
 
 - (BOOL)mockedClassHasAncestorClass:(Class)aClass {
     Class currentClass = self.mockedClass;
@@ -517,8 +543,7 @@ static NSString * const ChangeStubValueAfterTimesKey = @"ChangeStubValueAfterTim
            [super conformsToProtocol:aProtocol];
 }
 
-#pragma mark -
-#pragma mark Whitelisted NSObject Methods
+#pragma mark - Whitelisted NSObject Methods
 
 - (BOOL)isEqual:(id)anObject {
     KWMessagePattern *messagePattern = [KWMessagePattern messagePatternWithSelector:_cmd];

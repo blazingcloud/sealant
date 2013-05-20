@@ -9,20 +9,16 @@
 #import "KWMatcher.h"
 #import "KWMatchVerifier.h"
 
-@interface KWHaveMatcher : KWMatcher {
-@private
-    KWCountType countType;
-    NSUInteger count;
-    NSInvocation *invocation;
-    NSUInteger actualCount;
-}
+@interface KWHaveMatcher : KWMatcher
 
-#pragma mark -
-#pragma mark Configuring Matchers
+#pragma mark - Configuring Matchers
 
 - (void)haveCountOf:(NSUInteger)aCount;
 - (void)haveCountOfAtLeast:(NSUInteger)aCount;
 - (void)haveCountOfAtMost:(NSUInteger)aCount;
+- (void)haveLengthOf:(NSUInteger)aCount;
+- (void)haveLengthOfAtLeast:(NSUInteger)aCount;
+- (void)haveLengthOfAtMost:(NSUInteger)aCount;
 - (void)have:(NSUInteger)aCount itemsForInvocation:(NSInvocation *)anInvocation;
 - (void)haveAtLeast:(NSUInteger)aCount itemsForInvocation:(NSInvocation *)anInvocation;
 - (void)haveAtMost:(NSUInteger)aCount itemsForInvocation:(NSInvocation *)anInvocation;
@@ -31,8 +27,7 @@
 
 @protocol KWContainmentCountMatcherTerminals
 
-#pragma mark -
-#pragma mark Terminals
+#pragma mark - Terminals
 
 - (id)objects;
 - (id)items;
@@ -42,8 +37,7 @@
 
 @interface KWMatchVerifier(KWHaveMatcherAdditions)
 
-#pragma mark -
-#pragma mark Verifying
+#pragma mark - Verifying
 
 #pragma mark Invocation Capturing Methods
 

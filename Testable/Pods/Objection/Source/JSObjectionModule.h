@@ -1,9 +1,10 @@
 #import <Foundation/Foundation.h>
+#import "JSObjectionEntry.h"
 
 @class JSObjectionInjector;
 
 @protocol JSObjectionProvider<NSObject>
-- (id)provide:(JSObjectionInjector *)context;
+- (id)provide:(JSObjectionInjector *)context arguments:(NSArray *)arguments;
 @end
 
 
@@ -24,6 +25,7 @@
 - (void)bindClass:(Class)aClass toClass:(Class)toClass;
 - (void)bindBlock:(id (^)(JSObjectionInjector *context))block toClass:(Class)aClass;
 - (void)bindBlock:(id (^)(JSObjectionInjector *context))block toProtocol:(Protocol *)aProtocol;
-- (void)registerEagerSingleton:(Class)klass;
+- (void)bindClass:(Class)aClass inScope:(JSObjectionScope)scope;
+- (void)registerEagerSingleton:(Class)aClass;
 - (void)configure;
 @end

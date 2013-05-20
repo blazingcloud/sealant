@@ -1,6 +1,6 @@
 //
 //  OCHamcrest - HCDescribedAs.m
-//  Copyright 2012 hamcrest.org. See LICENSE.txt
+//  Copyright 2013 hamcrest.org. See LICENSE.txt
 //
 //  Created by: Jon Reid, http://qualitycoding.org/
 //  Docs: http://hamcrest.github.com/OCHamcrest/
@@ -10,8 +10,6 @@
 #import "HCDescribedAs.h"
 
 #import "HCDescription.h"
-#import <stdarg.h>
-#import <ctype.h>
 
 
 typedef struct

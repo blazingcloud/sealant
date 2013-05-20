@@ -9,8 +9,7 @@
 
 @interface KWInequalityMatcher()
 
-#pragma mark -
-#pragma mark Properties
+#pragma mark - Properties
 
 @property (nonatomic, readwrite) KWInequalityType inequalityType;
 @property (nonatomic, readwrite, retain) id otherValue;
@@ -19,32 +18,28 @@
 
 @implementation KWInequalityMatcher
 
-#pragma mark -
-#pragma mark Initializing
+#pragma mark - Initializing
 
 - (void)dealloc {
     [otherValue release];
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Properties
+#pragma mark - Properties
 
 @synthesize inequalityType;
 @synthesize otherValue;
 
-#pragma mark -
-#pragma mark Getting Matcher Strings
+#pragma mark - Getting Matcher Strings
 
 + (NSArray *)matcherStrings {
-    return [NSArray arrayWithObjects:@"beLessThan:",
+    return @[@"beLessThan:",
                                      @"beLessThanOrEqualTo:",
                                      @"beGreaterThan:",
-                                     @"beGreaterThanOrEqualTo:", nil];
+                                     @"beGreaterThanOrEqualTo:"];
 }
 
-#pragma mark -
-#pragma mark Matching
+#pragma mark - Matching
 
 - (BOOL)evaluate {
     if (![self.subject respondsToSelector:@selector(compare:)])
@@ -65,8 +60,7 @@
     return NO;
 }
 
-#pragma mark -
-#pragma mark Getting Failure Messages
+#pragma mark - Getting Failure Messages
 
 - (NSString *)comparisonPhrase {
     switch (self.inequalityType) {
@@ -96,8 +90,7 @@
   return [NSString stringWithFormat:@"be %@ %@", [self comparisonPhrase], [KWFormatter formatObject:self.otherValue]];
 }
 
-#pragma mark -
-#pragma mark Configuring Matchers
+#pragma mark - Configuring Matchers
 
 - (void)beLessThan:(id)aValue {
     self.inequalityType = KWInequalityTypeLessThan;

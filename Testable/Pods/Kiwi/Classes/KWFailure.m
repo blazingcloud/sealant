@@ -10,8 +10,7 @@
 
 @implementation KWFailure
 
-#pragma mark -
-#pragma mark Initializing
+#pragma mark - Initializing
 
 - (id)initWithCallSite:(KWCallSite *)aCallSite message:(NSString *)aMessage {
     if ((self = [super init])) {
@@ -46,19 +45,20 @@
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Properties
+#pragma mark - Properties
 
 @synthesize message;
 @synthesize callSite;
 
-#pragma mark -
-#pragma mark Getting Exception Representations
+#pragma mark - Getting Exception Representations
 
 - (NSException *)exceptionValue {
-    NSNumber *lineNumber = [NSNumber numberWithUnsignedInteger:self.callSite.lineNumber];
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.callSite.filename, SenTestFilenameKey,
-                                                                        lineNumber, SenTestLineNumberKey, nil];
+    NSDictionary *userInfo = nil;
+    if (self.callSite) {
+        NSNumber *lineNumber = @(self.callSite.lineNumber);
+        userInfo = @{SenTestFilenameKey: self.callSite.filename,
+                                                                            SenTestLineNumberKey: lineNumber};
+    }
     return [NSException exceptionWithName:@"KWFailureException" reason:message userInfo:userInfo];
 }
 

@@ -5,11 +5,9 @@ pod 'TestFlightSDK'
 link_with ['Testable']
 
 target :spec, :exclusive => true do
-    # latest_kiwi_with_hamcrest uses HEAD of Kiwi and latest released Hamcrest pod
-    # pod update - to update to latest Kiwi sources without changing podspec
-    # to use stable version of Kiwi create new podspec without .dev subversion and select released Kiwi version
-    pod 'Kiwi', :podspec => 'https://gist.github.com/raw/4541144/latest_kiwi_with_hamcrest.podspec'
-    pod 'Sealant', :git => 'ssh://git@github.com/blazingcloud/sealant.git'
+    pod 'Kiwi'
+    pod 'OCHamcrest'
+    pod 'Sealant'
     pod 'Sealant/Kiwi'
     pod 'Sealant/MKNetworkKit'
     pod 'Sealant/TestFlight'

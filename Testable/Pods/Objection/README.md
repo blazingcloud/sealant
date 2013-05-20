@@ -1,6 +1,6 @@
 ## Description
 
-Objection is a lightweight dependency injection framework for Objective-C for MacOS X and iOS. For those of you that have used Guice objection will feel familiar. Objection was built to stay out of your way and alleviate the need to maintain a large XML container or manually construct objects.
+Objection is a lightweight dependency injection framework for Objective-C for MacOS X and iOS. For those of you that have used [Guice](http://code.google.com/p/google-guice/), Objection will feel familiar. Objection was built to stay out of your way and alleviate the need to maintain a large XML container or manually construct objects.
 
 ## Features
 
@@ -20,7 +20,7 @@ Objection is a lightweight dependency injection framework for Objective-C for Ma
 For questions, visit the [mailing list](https://groups.google.com/forum/?fromgroups#!forum/objection-framework)
 ### Basic Usage
 
-A class can be registered with objection using the macros *objection_register* or *objection_register_singleton*. The *objection_requires* macro can be used to declare what dependencies objection should provide to all instances it creates of that class. *objection_requires* can be used safely with inheritance.
+A class can be registered with objection using the macros *objection_register* (optional) or *objection_register_singleton*. The *objection_requires* macro can be used to declare what dependencies objection should provide to all instances it creates of that class. *objection_requires* can be used safely with inheritance.
 
 #### Example
 ```objective-c
@@ -34,13 +34,12 @@ A class can be registered with objection using the macros *objection_register* o
 }
 
 // Will be filled in by objection
-@property(nonatomic, retain) Engine *engine;
+@property(nonatomic, strong) Engine *engine;
 // Will be filled in by objection
-@property(nonatomic, retain) Brakes *brakes;
+@property(nonatomic, strong) Brakes *brakes;
 @property(nonatomic) BOOL awake;
 
 @implementation Car
-objection_register(Car)
 objection_requires(@"engine", @"brakes")
 @synthesize engine, brakes, awake;
 @end
@@ -116,7 +115,7 @@ A class can get objects from the injector context through an object factory.
 ### Example
 ```objective-c
 @interface RequestDispatcher
-@property(nonatomic, retain) JSObjectFactory *objectFactory
+@property(nonatomic, strong) JSObjectFactory *objectFactory
 @end
 
 @implementation RequestDispatcher
@@ -153,7 +152,7 @@ A module is a set of bindings which contributes additional configuration informa
 
 @end
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-  JSObjectionInjector *injector = [JSObjection createInjector:[[[MyAppModule alloc] init] autorelease]];
+  JSObjectionInjector *injector = [JSObjection createInjector:[[MyAppModule alloc] init]];
   [JSObjection setDefaultInjector:injector];
 }
 ```
@@ -208,11 +207,25 @@ Occasionally you'll want to manually construct an object within Objection. Provi
 
 @implementation MyAppModule
 - (void)configure {
-    [self bindProvider:[[[CarProvider alloc] init] autorelease] toClass:[Car class]];
+    [self bindProvider:[[CarProvider alloc] init] toClass:[Car class]];
     [self bindBlock:^(JSObjectionInjector *context) {
       // Manually build object
       return car;          
     } toClass:[Car class]];
+}
+@end
+```
+
+### Scopes
+
+A class can be scoped as a singleton in a module. Conversely, a registered singleton can be demoted to a normal lifecycle with in the injector's context.
+
+### Example
+```objective-c
+@implementation MyAppModule
+- (void)configure {
+    [self bindClass:[Singleton class] inScope:JSObjectionScopeNormal];
+    [self bindClass:[Car class] inScope:JSObjectionScopeSingleton];
 }
 @end
 ```
@@ -251,7 +264,6 @@ By default, Objection allocates objects with the default initializer <code>init<
 #### Default Arguments Example
 ```objective-c
 @implementation ViewController
-objection_register(ViewController)
 objection_initializer(initWithNibName:bundle:, @"ViewController")
 @end
 ```
@@ -259,7 +271,6 @@ objection_initializer(initWithNibName:bundle:, @"ViewController")
 ####  Custom Arguments Example
 ```objective-c
 @implementation ConfigurableCar
-objection_register(ConfigurableCar)
 objection_requires(@"engine", @"brakes")
 objection_initializer(initWithMake:model:)
 
@@ -279,18 +290,20 @@ objection_initializer(initWithMake:model:)
 
 ## TODO
 
-* ARCify for iOS
-* Pass along arguments to providers
 * Add a motivation section that speaks to _why_ Objection was created
 
 ## Installation
 
-Download the latest [here](https://github.com/atomicobject/objection/downloads) __or__
+### Static Framework and Linkable Framework
+
+It can be downloaded [here](http://objection-framework.org/files/Objection-0.16.0.tar.gz)
+
+### Building Static Framework
 
     git clone git://github.com/atomicobject/objection.git
-    git checkout 0.14.0
+    git checkout 0.16.0
     
-### iOS
+#### iOS
 
 
 1. rake artifact:ios
@@ -301,7 +314,7 @@ Download the latest [here](https://github.com/atomicobject/objection/downloads) 
 #### Include framework
     #import <Objection-iOS/Objection.h>
 
-### MacOS X
+#### MacOS X
 
 1. rake artifact:osx
 2. cp -R build/Release/Objection.framework ${DEST_DIR}
@@ -315,7 +328,7 @@ Download the latest [here](https://github.com/atomicobject/objection/downloads) 
 Edit your Pofile
 
     edit Podfile
-    pod 'Objection', '0.14.0'
+    pod 'Objection', '0.16.0'
 
 Now you can install Objection
     
@@ -325,20 +338,14 @@ Learn more at [CocoaPods](http://cocoapods.org).
 
 ## Requirements
 
-* MacOS X 10.6 +
-* iOS 4.0 +
+* MacOS X 10.7 +
+* iOS 5.0 +
 
 ## Authors
 
 * Justin DeWind (dewind@atomicobject.com, @dewind on Twitter)
-* © 2009-2012 [Atomic Object](http://www.atomicobject.com/)
+* © 2013 [Atomic Object](http://www.atomicobject.com/)
 * More Atomic Object [open source](http://www.atomicobject.com/pages/Software+Commons) projects
-
-## Contributors
-
-* Simon Schmid (@sschmid)
-* Mattes Groeger (@MattesGroeger)
-* Shawn Anderson (@shawn42)
 
 ## Other Dependency Injection Libraries
 
@@ -346,6 +353,8 @@ One only has to [search GitHub](https://github.com/search?l=Objective-C&p=1&q=de
 
 ## Applications that use Objection
 
-* [Bubble Island](http://www.wooga.com/games/bubble-island/) and other [Wooga](http://wooga.com) games
+* [Bubble Island](http://www.wooga.com/games/bubble-island/)
+* [Monster World](http://www.wooga.com/games/monster-world/)
+* [Pocket Village](http://www.wooga.com/games/pocket-village/)
 * [SideReel](https://itunes.apple.com/us/app/sidereel/id417270961?mt=8)
 

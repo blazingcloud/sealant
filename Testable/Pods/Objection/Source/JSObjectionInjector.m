@@ -8,28 +8,22 @@
 #import <objc/runtime.h>
 
 @interface __JSObjectionInjectorDefaultModule : JSObjectionModule
-{
-    JSObjectionInjector *_injector;
-}
+@property (nonatomic, weak) JSObjectionInjector *injector;
 @end
 
 @implementation __JSObjectionInjectorDefaultModule
 
 - (id)initWithInjector:(JSObjectionInjector *)injector {
     if ((self = [super init])) {
-        _injector = [injector retain];
+        self.injector = injector;
     }
     return self;
 }
 
 - (void)configure   {
-    [self bind:[[[JSObjectFactory alloc] initWithInjector:_injector] autorelease] toClass:[JSObjectFactory class]];
+    [self bind:[[JSObjectFactory alloc] initWithInjector:self.injector] toClass:[JSObjectFactory class]];
 }
 
-- (void)dealloc {
-    [_injector release];
-    [super dealloc];
-}
 @end
   
 @interface JSObjectionInjector(Private)
@@ -42,7 +36,7 @@
 
 - (id)initWithContext:(NSDictionary *)theGlobalContext {
     if ((self = [super init])) {
-        _globalContext = [theGlobalContext retain];
+        _globalContext = theGlobalContext;
         _context = [[NSMutableDictionary alloc] init];
         _modules = [[NSMutableArray alloc] init];
         [self configureDefaultModule];
@@ -83,8 +77,8 @@
     return [self getObjectWithArgs:classOrProtocol, nil];
 }
 
-- (id)getObject:(id)classOrProtocol arguments:(va_list)argList {
-    @synchronized(self) {    
+- (id)getObject:(id)classOrProtocol argumentList:(NSArray *)argumentList {
+    @synchronized(self) {
         if (!classOrProtocol) {
             return nil;
         }
@@ -107,24 +101,28 @@
             if (entry) {
                 injectorEntry = [[entry class] entryWithEntry:entry];
                 injectorEntry.injector = self;
-                [_context setObject:injectorEntry forKey:key];              
+                [_context setObject:injectorEntry forKey:key];
             } else if(isClass) {
-                injectorEntry = [[[JSObjectionInjectorEntry alloc] initWithClass:classOrProtocol lifeCycle:JSObjectionInstantiationRuleNormal] autorelease];
+                injectorEntry = [JSObjectionInjectorEntry entryWithClass:classOrProtocol scope:JSObjectionScopeNormal];
                 injectorEntry.injector = self;
                 [_context setObject:injectorEntry forKey:key];
             }
         }
         
         if (classOrProtocol && injectorEntry) {
-            NSArray *arguments = JSObjectionUtils.transformVariadicArgsToArray(argList);
-            return [injectorEntry extractObject:arguments];
-        } 
+            return [injectorEntry extractObject:argumentList];
+        }
         
-        return nil;    
+        return nil;
     }
     
     return nil;
+    
+}
 
+- (id)getObject:(id)classOrProtocol arguments:(va_list)argList {
+    NSArray *arguments = JSObjectionUtils.transformVariadicArgsToArray(argList);
+    return [self getObject:classOrProtocol argumentList:arguments];
 }
 
 - (id)objectForKeyedSubscript: (id)key {
@@ -200,7 +198,7 @@
 - (void)initializeEagerSingletons {
     for (NSString *eagerSingletonKey in _eagerSingletons) {
         id entry = [_globalContext objectForKey:eagerSingletonKey];
-        if ([entry lifeCycle] == JSObjectionInstantiationRuleSingleton) {
+        if ([entry lifeCycle] == JSObjectionScopeSingleton) {
             [self getObject:NSClassFromString(eagerSingletonKey)];      
         } else {
             @throw [NSException exceptionWithName:@"JSObjectionException" 
@@ -214,23 +212,16 @@
     [_modules addObject:module];
     [module configure];
     NSSet *mergedSet = [module.eagerSingletons setByAddingObjectsFromSet:_eagerSingletons];
-    [_eagerSingletons release];
-    _eagerSingletons = [mergedSet retain];
+    _eagerSingletons = mergedSet;
     [_context addEntriesFromDictionary:module.bindings];
 }
 
 - (void)configureDefaultModule {
-    __JSObjectionInjectorDefaultModule *module = [[[__JSObjectionInjectorDefaultModule alloc] initWithInjector:self] autorelease];
+    __JSObjectionInjectorDefaultModule *module = [[__JSObjectionInjectorDefaultModule alloc] initWithInjector:self];
     [self configureModule:module];
 }
 
 #pragma mark - 
 
-- (void)dealloc {
-    [_globalContext release];
-    [_context release];  
-    [_eagerSingletons release];
-    [super dealloc];
-}
 
 @end

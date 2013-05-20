@@ -26,7 +26,10 @@
 #import "KWExampleSuite.h"
 
 
-@interface KWExample ()
+@interface KWExample () {
+    id<KWExampleNode> exampleNode;
+    BOOL passed;
+}
 
 @property (nonatomic, readonly) NSMutableArray *verifiers;
 @property (nonatomic, readonly) KWMatcherFactory *matcherFactory;
@@ -43,7 +46,7 @@
 @synthesize verifiers;
 @synthesize delegate = _delegate;
 @synthesize suite;
-@synthesize lastInContext;
+@synthesize lastInContexts;
 @synthesize didNotFinish;
 
 - (id)initWithExampleNode:(id<KWExampleNode>)node
@@ -52,6 +55,7 @@
     exampleNode = [node retain];
     matcherFactory = [[KWMatcherFactory alloc] init];
     verifiers = [[NSMutableArray alloc] init];
+    lastInContexts = [[NSMutableArray alloc] init];
     passed = YES;
   }
   return self;
@@ -59,7 +63,7 @@
 
 - (void)dealloc 
 {
-  [lastInContext release];
+  [lastInContexts release];
   [exampleNode release];
   [matcherFactory release];
   [verifiers release];
@@ -68,7 +72,12 @@
 
 - (BOOL)isLastInContext:(KWContextNode *)context
 {
-  return context == self.lastInContext;
+  for (KWContextNode *contextWhereItLast in lastInContexts) {
+    if (context == contextWhereItLast) {
+      return YES;
+    }
+  }
+  return NO;
 }
 
 - (NSString *)description
@@ -255,13 +264,12 @@
 - (NSString *)generateDescriptionForAnonymousItNode
 {
   // anonymous specify blocks should only have one verifier, but use the first in any case
-  return [[self.verifiers objectAtIndex:0] descriptionForAnonymousItNode];
+  return [(self.verifiers)[0] descriptionForAnonymousItNode];
 }
 
 @end
 
-#pragma mark -
-#pragma mark Building Example Groups
+#pragma mark - Building Example Groups
 
 void describe(NSString *aDescription, KWVoidBlock aBlock) {
     describeWithCallSite(nil, aDescription, aBlock);

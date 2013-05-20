@@ -5,7 +5,7 @@
 
 - (id)initWithObject:(id)theObject {
     if ((self = [super init])) {
-        _instance = [theObject retain];    
+        _instance = theObject;    
     }
     return self;
 }
@@ -14,13 +14,12 @@
     return _instance;
 }
 
-- (JSObjectionInstantiationRule)lifeCycle {
-    return JSObjectionInstantiationRuleSingleton;
+- (JSObjectionScope)lifeCycle {
+    return JSObjectionScopeSingleton;
 }
 
 - (void)dealloc {
-    [_instance release]; _instance = nil;
-    [super dealloc];
+     _instance = nil;
 }
 
 @end

@@ -11,7 +11,7 @@ static JSObjectionInjector *gGlobalInjector;
 + (JSObjectionInjector *)createInjector:(JSObjectionModule *)module {
         pthread_mutex_lock(&gObjectionMutex);
         @try {
-            return [[[JSObjectionInjector alloc] initWithContext:gObjectionContext andModule:module] autorelease];
+            return [[JSObjectionInjector alloc] initWithContext:gObjectionContext andModule:module];
         }
         @finally {
             pthread_mutex_unlock(&gObjectionMutex); 
@@ -33,7 +33,7 @@ static JSObjectionInjector *gGlobalInjector;
         }
 
         va_end(va_modules);
-        return [[[JSObjectionInjector alloc] initWithContext:gObjectionContext andModules:modules] autorelease];
+        return [[JSObjectionInjector alloc] initWithContext:gObjectionContext andModules:modules];
     }
     @finally {
         pthread_mutex_unlock(&gObjectionMutex); 
@@ -45,7 +45,7 @@ static JSObjectionInjector *gGlobalInjector;
 + (JSObjectionInjector *)createInjector {
     pthread_mutex_lock(&gObjectionMutex);
     @try {
-        return [[[JSObjectionInjector alloc] initWithContext:gObjectionContext] autorelease];
+        return [[JSObjectionInjector alloc] initWithContext:gObjectionContext];
     }
     @finally {
         pthread_mutex_unlock(&gObjectionMutex); 
@@ -65,14 +65,14 @@ static JSObjectionInjector *gGlobalInjector;
     }
 }
 
-+ (void) registerClass:(Class)theClass lifeCycle:(JSObjectionInstantiationRule)lifeCycle {
++ (void) registerClass:(Class)theClass scope:(JSObjectionScope)scope {
     pthread_mutex_lock(&gObjectionMutex);
-    if (lifeCycle != JSObjectionInstantiationRuleSingleton && lifeCycle != JSObjectionInstantiationRuleNormal) {
+    if (scope != JSObjectionScopeSingleton && scope != JSObjectionScopeNormal) {
         @throw [NSException exceptionWithName:@"JSObjectionInjectorException" reason:@"Invalid Instantiation Rule" userInfo:nil];
     }
 
     if (theClass && [gObjectionContext objectForKey:NSStringFromClass(theClass)] == nil) {
-        [gObjectionContext setObject:[JSObjectionInjectorEntry entryWithClass:theClass lifeCycle:lifeCycle] forKey:NSStringFromClass(theClass)];
+        [gObjectionContext setObject:[JSObjectionInjectorEntry entryWithClass:theClass scope:scope] forKey:NSStringFromClass(theClass)];
     } 
     pthread_mutex_unlock(&gObjectionMutex);
 }
@@ -85,12 +85,11 @@ static JSObjectionInjector *gGlobalInjector;
 
 + (void)setDefaultInjector:(JSObjectionInjector *)anInjector {
     if (gGlobalInjector != anInjector) {
-        [gGlobalInjector release];
-        gGlobalInjector = [anInjector retain];
+        gGlobalInjector = anInjector;
     }
 }
 
 + (JSObjectionInjector *) defaultInjector {  
-    return [[gGlobalInjector retain] autorelease];
+    return gGlobalInjector;
 }
 @end

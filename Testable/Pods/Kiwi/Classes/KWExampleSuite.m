@@ -16,6 +16,12 @@
 
 #define kKWINVOCATION_EXAMPLE_GROUP_KEY @"__KWExampleGroupKey"
 
+@interface KWExampleSuite()  {
+    KWContextNode *rootNode;
+    NSMutableArray *examples;
+}
+@end
+
 @implementation KWExampleSuite
 
 - (id)initWithRootNode:(KWContextNode *)contextNode
@@ -42,9 +48,10 @@
 
 - (void)markLastExampleAsLastInContext:(KWContextNode *)context
 {
-	if ([examples count] > 0) {
-		[[examples objectAtIndex:examples.count-1] setLastInContext:context];
-	}
+  if ([examples count] > 0) {
+    KWExample *lastExample = (KWExample *)[examples lastObject];
+    [lastExample.lastInContexts addObject:context];
+  }
 }
 
 - (NSArray *)invocationsForTestCase;

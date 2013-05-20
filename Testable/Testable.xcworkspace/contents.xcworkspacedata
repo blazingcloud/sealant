@@ -11,7 +11,8 @@
       location = "group:Gemfile.lock">
    </FileRef>
    <FileRef
-      location = "group:Podfile">
+      location = "group:Podfile"
+      assignedFileDataType = "public.ruby-script">
    </FileRef>
    <FileRef
       location = "group:Podfile.lock">

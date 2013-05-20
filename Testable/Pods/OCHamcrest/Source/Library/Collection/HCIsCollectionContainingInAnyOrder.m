@@ -1,6 +1,6 @@
 //
 //  OCHamcrest - HCIsCollectionContainingInAnyOrder.m
-//  Copyright 2012 hamcrest.org. See LICENSE.txt
+//  Copyright 2013 hamcrest.org. See LICENSE.txt
 //
 //  Created by: Jon Reid, http://qualitycoding.org/
 //  Docs: http://hamcrest.github.com/OCHamcrest/
@@ -89,7 +89,7 @@
     return [self matches:collection describingMismatchTo:nil];
 }
 
-- (BOOL)matches:(id)collection describingMismatchTo:(id<HCDescription, NSObject>)mismatchDescription
+- (BOOL)matches:(id)collection describingMismatchTo:(id<HCDescription>)mismatchDescription
 {
     if (![collection conformsToProtocol:@protocol(NSFastEnumeration)])
     {

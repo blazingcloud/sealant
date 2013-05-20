@@ -11,13 +11,12 @@
 #import "KWValue.h"
 #import "NSInvocation+KiwiAdditions.h"
 #import "NSMethodSignature+KiwiAdditions.h"
-#import "KWHCMatcher.h"
+#import "KWGenericMatchEvaluator.h"
 #import "Kiwi.h"
 
 @implementation KWMessagePattern
 
-#pragma mark -
-#pragma mark Initializing
+#pragma mark - Initializing
 
 - (id)initWithSelector:(SEL)aSelector {
     return [self initWithSelector:aSelector argumentFilters:nil];
@@ -94,21 +93,18 @@
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Copying
+#pragma mark - Copying
 
 - (id)copyWithZone:(NSZone *)zone {
     return [self retain];
 }
 
-#pragma mark -
-#pragma mark Properties
+#pragma mark - Properties
 
 @synthesize selector;
 @synthesize argumentFilters;
 
-#pragma mark -
-#pragma mark Matching Invocations
+#pragma mark - Matching Invocations
 
 - (BOOL)argumentFiltersMatchInvocationArguments:(NSInvocation *)anInvocation {
     if (self.argumentFilters == nil)
@@ -131,25 +127,25 @@
         }
 
         // Match argument filter to object
-        id argumentFilter = [self.argumentFilters objectAtIndex:i];
+        id argumentFilter = (self.argumentFilters)[i];
 
         if ([argumentFilter isEqual:[KWAny any]]) {
             continue;
         }
 
-        if ([argumentFilter conformsToProtocol:@protocol(HCMatcher)]) {
-            id<HCMatcher> matcher = (id<HCMatcher>)argumentFilter;
+        if ([KWGenericMatchEvaluator isGenericMatcher:argumentFilter]) {
+            id matcher = argumentFilter;
             if ([object isKindOfClass:[KWValue class]] && [object isNumeric]) {
                 NSNumber *number = [object numberValue];
-                if (![matcher matches:number]) {
+                if (![KWGenericMatchEvaluator genericMatcher:matcher matches:number]) {
                     return NO;
                 }
-            } else if (![matcher matches:object]) {
+            } else if (![KWGenericMatchEvaluator genericMatcher:matcher matches:object]) {
                 return NO;
             }
         } else if ([argumentFilter isEqual:[KWNull null]]) {
             if (!KWObjCTypeIsPointerLike(objCType)) {
-                [NSException raise:@"KWMessagePatternException" format:@"nil was specified as an argument filter, but argument(%d) is not a pointer for @selector(%@)", i + 1, NSStringFromSelector([anInvocation selector])];
+                [NSException raise:@"KWMessagePatternException" format:@"nil was specified as an argument filter, but argument(%d) is not a pointer for @selector(%@)", (int)(i + 1), NSStringFromSelector([anInvocation selector])];
             }
             void *p = nil;
             [anInvocation getMessageArgument:&p atIndex:i];
@@ -167,8 +163,7 @@
     return self.selector == [anInvocation selector] && [self argumentFiltersMatchInvocationArguments:anInvocation];
 }
 
-#pragma mark -
-#pragma mark Comparing Message Patterns
+#pragma mark - Comparing Message Patterns
 
 - (NSUInteger)hash {
     return [NSStringFromSelector(self.selector) hash];
@@ -191,8 +186,7 @@
     return [self.argumentFilters isEqualToArray:aMessagePattern.argumentFilters];
 }
 
-#pragma mark -
-#pragma mark Retrieving String Representations
+#pragma mark - Retrieving String Representations
 
 - (NSString *)selectorString {
     return NSStringFromSelector(self.selector);
@@ -204,8 +198,8 @@
     NSUInteger count = [components count] - 1;
 
     for (NSUInteger i = 0; i < count; ++i) {
-        NSString *selectorComponent = [components objectAtIndex:i];
-        NSString *argumentFilterString = [KWFormatter formatObject:[self.argumentFilters objectAtIndex:i]];
+        NSString *selectorComponent = components[i];
+        NSString *argumentFilterString = [KWFormatter formatObject:(self.argumentFilters)[i]];
         [description appendFormat:@"%@:%@ ", selectorComponent, argumentFilterString];
     }
 
@@ -219,8 +213,7 @@
         return [self selectorAndArgumentFiltersString];
 }
 
-#pragma mark -
-#pragma mark Debugging
+#pragma mark - Debugging
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"selector: %@\nargumentFilters: %@",

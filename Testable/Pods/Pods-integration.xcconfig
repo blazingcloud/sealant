@@ -1,9 +1,9 @@
 ALWAYS_SEARCH_USER_PATHS = YES
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) RUN_KIF_TESTS=1
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1 $(inherited) RUN_KIF_TESTS=1
 HEADER_SEARCH_PATHS = ${PODS_HEADERS_SEARCH_PATHS}
 LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/TestFlightSDK"
-OTHER_LDFLAGS = -ObjC -lTestFlight -lz -framework UIKit
-PODS_BUILD_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/TestFlightSDK" "${PODS_ROOT}/BuildHeaders/JRSwizzle" "${PODS_ROOT}/BuildHeaders/Kiwi" "${PODS_ROOT}/BuildHeaders/MKNetworkKit" "${PODS_ROOT}/BuildHeaders/MKNetworkKit/Categories" "${PODS_ROOT}/BuildHeaders/OCHamcrest" "${PODS_ROOT}/BuildHeaders/Objection" "${PODS_ROOT}/BuildHeaders/Reachability" "${PODS_ROOT}/BuildHeaders/Sealant" "${PODS_ROOT}/BuildHeaders/KIF"
+OTHER_LDFLAGS = -ObjC -lTestFlight -lz -framework CoreGraphics -framework UIKit
+PODS_BUILD_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/JRSwizzle" "${PODS_ROOT}/BuildHeaders/KIF" "${PODS_ROOT}/BuildHeaders/Kiwi" "${PODS_ROOT}/BuildHeaders/MKNetworkKit" "${PODS_ROOT}/BuildHeaders/MKNetworkKit/Categories" "${PODS_ROOT}/BuildHeaders/OCHamcrest" "${PODS_ROOT}/BuildHeaders/Objection" "${PODS_ROOT}/BuildHeaders/Reachability" "${PODS_ROOT}/BuildHeaders/Sealant" "${PODS_ROOT}/BuildHeaders/TestFlightSDK"
 PODS_HEADERS_SEARCH_PATHS = ${PODS_PUBLIC_HEADERS_SEARCH_PATHS}
-PODS_PUBLIC_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/TestFlightSDK" "${PODS_ROOT}/Headers/JRSwizzle" "${PODS_ROOT}/Headers/Kiwi" "${PODS_ROOT}/Headers/MKNetworkKit" "${PODS_ROOT}/Headers/MKNetworkKit/Categories" "${PODS_ROOT}/Headers/OCHamcrest" "${PODS_ROOT}/Headers/Objection" "${PODS_ROOT}/Headers/Reachability" "${PODS_ROOT}/Headers/Sealant" "${PODS_ROOT}/Headers/KIF"
+PODS_PUBLIC_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/JRSwizzle" "${PODS_ROOT}/Headers/KIF" "${PODS_ROOT}/Headers/Kiwi" "${PODS_ROOT}/Headers/MKNetworkKit" "${PODS_ROOT}/Headers/MKNetworkKit/Categories" "${PODS_ROOT}/Headers/OCHamcrest" "${PODS_ROOT}/Headers/Objection" "${PODS_ROOT}/Headers/Reachability" "${PODS_ROOT}/Headers/Sealant" "${PODS_ROOT}/Headers/TestFlightSDK"
 PODS_ROOT = ${SRCROOT}/Pods

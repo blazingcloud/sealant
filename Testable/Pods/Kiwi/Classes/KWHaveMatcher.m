@@ -16,8 +16,7 @@ static NSString * const CountKey = @"CountKey";
 
 @interface KWHaveMatcher()
 
-#pragma mark -
-#pragma mark Properties
+#pragma mark - Properties
 
 @property (nonatomic, readwrite) KWCountType countType;
 @property (nonatomic, readwrite) NSUInteger count;
@@ -28,36 +27,37 @@ static NSString * const CountKey = @"CountKey";
 
 @implementation KWHaveMatcher
 
-#pragma mark -
-#pragma mark Initializing
+#pragma mark - Initializing
 
 - (void)dealloc {
     [invocation release];
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark Properties
+#pragma mark - Properties
 
 @synthesize countType;
 @synthesize count;
 @synthesize invocation;
 @synthesize actualCount;
 
-#pragma mark -
-#pragma mark Getting Matcher Strings
+#pragma mark - Getting Matcher Strings
 
 + (NSArray *)matcherStrings {
-    return [NSArray arrayWithObjects:@"haveCountOf:",
-                                     @"haveCountOfAtLeast:",
-                                     @"haveCountOfAtMost:",
-                                     @"have:itemsForInvocation:",
-                                     @"haveAtLeast:itemsForInvocation:",
-                                     @"haveAtMost:itemsForInvocation:", nil];
+    return @[
+             @"haveCountOf:",
+             @"haveCountOfAtLeast:",
+             @"haveCountOfAtMost:",
+             @"haveLengthOf:",
+             @"haveLengthOfAtLeast:",
+             @"haveLengthOfAtMost:",
+             @"have:itemsForInvocation:",
+             @"haveAtLeast:itemsForInvocation:",
+             @"haveAtMost:itemsForInvocation:",
+             ];
 }
 
-#pragma mark -
-#pragma mark Matching
+#pragma mark - Matching
 
 - (id)targetObject {
     if (self.invocation == nil)
@@ -105,8 +105,7 @@ static NSString * const CountKey = @"CountKey";
     return NO;
 }
 
-#pragma mark -
-#pragma mark Getting Failure Messages
+#pragma mark - Getting Failure Messages
 
 - (NSString *)verbPhrase {
     switch (self.countType) {
@@ -151,20 +150,22 @@ static NSString * const CountKey = @"CountKey";
                                       [self itemPhrase]];
 }
 
-#pragma mark -
-#pragma mark Description
+#pragma mark - Description
 
 - (NSString *)description
 {
   return [NSString stringWithFormat:@"%@ %u %@", [self verbPhrase], (unsigned)self.count, [self itemPhrase]];
 }
 
-#pragma mark -
-#pragma mark Configuring Matchers
+#pragma mark - Configuring Matchers
 
 - (void)haveCountOf:(NSUInteger)aCount {
     self.count = aCount;
     self.countType = KWCountTypeExact;
+}
+
+- (void)haveLengthOf:(NSUInteger)aCount {
+  [self haveCountOf:aCount];
 }
 
 - (void)haveCountOfAtLeast:(NSUInteger)aCount {
@@ -172,9 +173,17 @@ static NSString * const CountKey = @"CountKey";
     self.countType = KWCountTypeAtLeast;
 }
 
+- (void)haveLengthOfAtLeast:(NSUInteger)aCount {
+  [self haveCountOfAtLeast:aCount];
+}
+
 - (void)haveCountOfAtMost:(NSUInteger)aCount {
     self.count = aCount;
     self.countType = KWCountTypeAtMost;
+}
+
+- (void)haveLengthOfAtMost:(NSUInteger)aCount {
+  [self haveCountOfAtMost:aCount];
 }
 
 - (void)have:(NSUInteger)aCount itemsForInvocation:(NSInvocation *)anInvocation {
@@ -195,11 +204,10 @@ static NSString * const CountKey = @"CountKey";
     self.invocation = anInvocation;
 }
 
-#pragma mark -
-#pragma mark Capturing Invocations
+#pragma mark - Capturing Invocations
 
 + (NSMethodSignature *)invocationCapturer:(KWInvocationCapturer *)anInvocationCapturer methodSignatureForSelector:(SEL)aSelector {
-    KWMatchVerifier *verifier = [anInvocationCapturer.userInfo objectForKey:MatchVerifierKey];
+    KWMatchVerifier *verifier = (anInvocationCapturer.userInfo)[MatchVerifierKey];
 
     if ([verifier.subject respondsToSelector:aSelector])
         return [verifier.subject methodSignatureForSelector:aSelector];
@@ -212,9 +220,9 @@ static NSString * const CountKey = @"CountKey";
 
 + (void)invocationCapturer:(KWInvocationCapturer *)anInvocationCapturer didCaptureInvocation:(NSInvocation *)anInvocation {
     NSDictionary *userInfo = anInvocationCapturer.userInfo;
-    id verifier = [userInfo objectForKey:MatchVerifierKey];
-    KWCountType countType = [[userInfo objectForKey:CountTypeKey] unsignedIntegerValue];
-    NSUInteger count = [[userInfo objectForKey:CountKey] unsignedIntegerValue];
+    id verifier = userInfo[MatchVerifierKey];
+    KWCountType countType = [userInfo[CountTypeKey] unsignedIntegerValue];
+    NSUInteger count = [userInfo[CountKey] unsignedIntegerValue];
 
     switch (countType) {
         case KWCountTypeExact:
@@ -233,15 +241,14 @@ static NSString * const CountKey = @"CountKey";
 
 @implementation KWMatchVerifier(KWHaveMatcherAdditions)
 
-#pragma mark -
-#pragma mark Verifying
+#pragma mark - Verifying
 
 #pragma mark Invocation Capturing Methods
 
 - (NSDictionary *)userInfoForHaveMatcherWithCountType:(KWCountType)aCountType count:(NSUInteger)aCount {
-    return [NSDictionary dictionaryWithObjectsAndKeys:self, MatchVerifierKey,
-                                                      [NSNumber numberWithUnsignedInteger:aCountType], CountTypeKey,
-                                                      [NSNumber numberWithUnsignedInteger:aCount], CountKey, nil];
+    return @{MatchVerifierKey: self,
+                                                      CountTypeKey: @(aCountType),
+                                                      CountKey: @(aCount)};
 }
 
 - (id)have:(NSUInteger)aCount {

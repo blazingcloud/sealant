@@ -1,6 +1,6 @@
 //
 //  OCHamcrest - HCInvocationMatcher.h
-//  Copyright 2012 hamcrest.org. See LICENSE.txt
+//  Copyright 2013 hamcrest.org. See LICENSE.txt
 //
 //  Created by: Jon Reid, http://qualitycoding.org/
 //  Docs: http://hamcrest.github.com/OCHamcrest/
@@ -30,7 +30,7 @@
     Default is long form, which describes the object, the name of the invocation, and the
     sub-matcher's mismatch diagnosis. Short form only has the sub-matcher's mismatch diagnosis.
  */
-@property (nonatomic, assign) BOOL shortMismatchDescription;
+@property (assign, nonatomic) BOOL shortMismatchDescription;
 
 /**
     Helper method for creating an invocation.

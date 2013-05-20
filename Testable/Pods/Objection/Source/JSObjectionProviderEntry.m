@@ -5,7 +5,7 @@
 
 - (id)initWithProvider:(id<JSObjectionProvider>)theProvider {
     if ((self = [super init])) {
-        _provider = [theProvider retain];
+        _provider = theProvider;
     }
 
     return self;
@@ -23,12 +23,7 @@
     if (_block) {
         return _block(self.injector);
     }
-    return [_provider provide:self.injector];
+    return [_provider provide:self.injector arguments:arguments];
 }
 
-- (void)dealloc {
-    [_provider release];
-    [_block release];
-    [super dealloc];
-}
 @end
