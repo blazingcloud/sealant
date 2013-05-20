@@ -9,6 +9,10 @@
 #import <Kiwi.h>
 #import <OCHamcrest.h>
 
+#ifndef HC_SHORTHAND
+#error Hamcrest shorthand macros are not enabled, please add HC_SHORTHAND to the target
+#endif
+
 SPEC_BEGIN(HamcrestMatchersSpec)
 
 describe(@"Hamcrest", ^{

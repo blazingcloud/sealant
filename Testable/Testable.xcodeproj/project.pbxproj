@@ -600,6 +600,10 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Unit Specs/Unit Specs-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					HC_SHORTHAND,
+				);
 				INFOPLIST_FILE = "Unit Specs/Unit Specs-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
@@ -612,6 +616,10 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Unit Specs/Unit Specs-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					HC_SHORTHAND,
+				);
 				INFOPLIST_FILE = "Unit Specs/Unit Specs-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
@@ -700,6 +708,10 @@
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Testable.app/Testable";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Testable/Testable-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					HC_SHORTHAND,
+				);
 				INFOPLIST_FILE = "App Specs/App Specs-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -714,6 +726,10 @@
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Testable.app/Testable";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Testable/Testable-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					HC_SHORTHAND,
+				);
 				INFOPLIST_FILE = "App Specs/App Specs-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
