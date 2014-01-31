@@ -33,7 +33,7 @@
 #pragma mark Matching
 
 - (BOOL)evaluate {
-    return [UIImagePNGRepresentation(subject) isEqual:UIImagePNGRepresentation(self.object)];
+    return [UIImagePNGRepresentation(self.subject) isEqual:UIImagePNGRepresentation(self.object)];
 }
 
 - (void)matchImage:(NSString *)expectedImageName {
@@ -45,7 +45,7 @@
 
 - (NSString *)failureMessageForShould {
     NSString *actualImagePath = [@"/tmp" stringByAppendingPathComponent:self.objectName];
-    [UIImagePNGRepresentation(subject) writeToFile:actualImagePath atomically:NO];
+    [UIImagePNGRepresentation(self.subject) writeToFile:actualImagePath atomically:NO];
     return [NSString stringWithFormat:@"image should match %@", actualImagePath];
 }
 
