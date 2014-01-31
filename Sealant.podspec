@@ -1,15 +1,15 @@
 Pod::Spec.new do |s|
   s.name            = 'Sealant'
-  s.version         = '1.0'
+  s.version         = '1.1'
   s.summary         = 'iOS Testing Glue - fixtures, matchers and helpers.'
   s.homepage        = 'https://github.com/blazingcloud/sealant'
   s.authors         = { 'Blazing Pair' => 'blazingpair@blazingcloud.net', 'Paul Zabelin' => 'paul@blazingcloud.net' }
   s.license         = { :type => 'MIT' }
   s.source          = { :git => 'https://github.com/blazingcloud/sealant.git' }
-  s.description     = 'This pod provides a set of utilities for automated testing on iOS.'
+  s.description     = 'Test helpers for unit testing and acceptance testing on iOS.'
   s.preserve_paths  = 'Scripts'
   s.requires_arc    = true
-  s.preferred_dependency = 'Sealant'
+  s.default_subspec = 'Sealant'
 
   s.subspec 'Sealant' do |sa|
     sa.source_files    = 'Classes/*.{h,m}'
